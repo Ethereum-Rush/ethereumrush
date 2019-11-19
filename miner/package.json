@@ -1,0 +1,13 @@
+{
+  "name": "miner",
+  "version": "1.0.0",
+  "description": "Proof of live currency miner",
+  "main": "app.js",
+  "author": "Yasin aktimur",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^7.1.1"
+  }
+}
