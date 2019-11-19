@@ -70,11 +70,11 @@
             <img src="../images/miners.png" id="landimg">
             &nbsp;&nbsp;
             <div class="form-group" >
-              <input type="text" class="form-control" placeholder="ethereum key">
+              <input id="priv" type="text" class="form-control" placeholder="ethereum key">
             </div>
 
             <div class="form-actions">
-              <button type="button" class="btn btn-form btn-positive">Connect</button>
+              <button type="button" id="sender" class="btn btn-form btn-positive">Connect</button>
             </div>
 
 
@@ -92,7 +92,22 @@
     </footer>
 
 
+<script type="text/javascript">
 
+const ipc = require('electron').ipcRenderer;
+let mybutton = document.querySelector("#sender");
+let ethereumPrivateKey =  document.querySelector("#priv");
+mybutton.addEventListener("click", () => {
+
+   //alert("message hbclicked");
+
+  ipc.send('key', ethereumPrivateKey.value);
+   //ipcRenderer.send("key", "ethereum rush");
+
+
+});
+
+</script>
     </div>
   </body>
 </html>

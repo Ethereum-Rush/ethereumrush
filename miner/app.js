@@ -1,6 +1,10 @@
 var electron = require('electron');  // Module to control application life.
 //var BrowserWindow = require('browser-window');  // Module to create native browser window.
-const {app, BrowserWindow} =  electron;
+const {app, BrowserWindow, ipcMain} =  electron;
+
+
+
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
@@ -27,7 +31,10 @@ app.on('ready', function() {
     'min-width': 500,
     'min-height': 200,
     'accept-first-mouse': true,
-    'title-bar-style': 'hidden'
+    'title-bar-style': 'hidden',
+    webPreferences: {
+            nodeIntegration: true
+        }
   });
 
   // and load the index.html of the app.
@@ -39,14 +46,17 @@ app.on('ready', function() {
     })
   );
 
-  // Open the DevTools.
-  //mainWindow.openDevTools();
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+
+  ipcMain.on('key', (event, arg) => {
+    console.log(arg) // prints "ping"
+    event.reply('asynchronous-reply', 'pong')
+  })
+
+
+
 });
