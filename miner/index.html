@@ -5,6 +5,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/photon.min.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <!-- Javascript -->
     <script src="js/menu.js" charset="utf-8"></script>
@@ -12,37 +13,68 @@
   <body>
     <div class="window">
 
-      <!-- .toolbar-header sits at the top of your app -->
-      <header class="toolbar toolbar-header">
-        <h1 class="title">Wallet Configurations</h1>
-      </header>
+
 
       <!-- Your app's content goes inside .window-content -->
       <div class="window-content">
         <div class="pane-group">
+
+
+
+
           <div class="pane pane-sm sidebar">
             <nav class="nav-group">
-              <h5 class="nav-group-title">Actions</h5>
-              <span class="nav-group-item active">
-                <span class="icon icon-database"></span>
-                 Wallet Configurations
-              </span>
 
-              <span class="nav-group-item">
-                <span class="icon icon-tools"></span>
-                Start Mining
-              </span>
+
+              <h5 class="nav-group-title">Received</h5>
+              <ul class="list-group">
+              <li class="list-group-item">
+                <img class="img-circle media-object pull-left" src="../images/avatar2.png" width="32" height="32">
+                <div class="media-body">
+                  <strong>240 ETR.</strong>
+                  <p>Go TXID.</p>
+                </div>
+              </li>
+            </ul>
+
+
+            <h5 class="nav-group-title">Actions</h5>
+            <ul class="list-group">
+            <li class="list-group-item">
+              <img class="img-circle media-object pull-left" src="../images/avatar.jpg" width="32" height="32">
+              <div class="media-body">
+                <strong>False</strong>
+                <p>542</p>
+              </div>
+            </li>
+          </ul>
+
+
+
+
+
             </nav>
           </div>
 
-          <form style="padding-left:10px;">
 
+
+
+
+
+
+
+
+
+          <form id="ethform">
+
+            <img src="../images/miners.png" id="landimg">
+            &nbsp;&nbsp;
             <div class="form-group" >
-              <label>Ethereum Key</label>
               <input type="text" class="form-control" placeholder="ethereum key">
             </div>
+
             <div class="form-actions">
-              <button type="button" class="btn btn-form btn-success">Connect</button>
+              <button type="button" class="btn btn-form btn-positive">Connect</button>
             </div>
 
 
@@ -56,8 +88,8 @@
       </div>
 
       <footer class="toolbar toolbar-footer">
-  <h1 class="title">Ethereum Rush</h1>
-</footer>
+      <h1 class="title">Ethereum Rush</h1>
+    </footer>
 
 
 
