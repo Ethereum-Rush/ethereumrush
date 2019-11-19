@@ -1,9 +1,9 @@
 var electron = require('electron');  // Module to control application life.
 //var BrowserWindow = require('browser-window');  // Module to create native browser window.
 const {app, BrowserWindow, ipcMain} =  electron;
-
-
-
+var Web3 = require('web3');
+var web3 = new Web3("https://mainnet.infura.io/v3/914bc8ee83c746a9801f4a57f0432aff");
+const ethUtils = require('ethereumjs-util')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -52,9 +52,23 @@ app.on('ready', function() {
   });
 
 
-  ipcMain.on('key', (event, arg) => {
-    console.log(arg) // prints "ping"
-    event.reply('asynchronous-reply', 'pong')
+  ipcMain.on('key', (event, privateKey) => {
+    //console.log(arg) // prints "ping"
+    //var buf = Buffer.from(arg, 'utf8');
+
+    var privateKey = Buffer.from(privateKey, 'hex' );
+    var myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
+
+
+    console.log(myetheraddress);
+
+    //web3.eth.getBalance(myetheraddress).then(function(balance){
+  //    console.log(web3.utils.fromWei(balance));
+//    });
+
+
+
+    //event.reply('asynchronous-reply', 'pong')
   })
 
 
