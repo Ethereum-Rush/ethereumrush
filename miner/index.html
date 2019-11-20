@@ -30,7 +30,7 @@
               <h5 class="nav-group-title">Received</h5>
               <ul class="list-group">
               <li class="list-group-item">
-                <img class="img-circle media-object pull-left" src="../images/avatar2.png" width="32" height="32">
+                <img class="img-rounded media-object pull-left" src="../images/received.png" width="32" height="32">
                 <div class="media-body">
                   <strong>240 ETR.</strong>
                   <p>Go TXID.</p>
@@ -42,7 +42,7 @@
             <h5 class="nav-group-title">Actions</h5>
             <ul class="list-group">
             <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src="../images/avatar.jpg" width="32" height="32">
+              <img class="img-circle media-object pull-left" src="../images/attachment.png" width="32" height="32">
               <div class="media-body">
                 <strong>False</strong>
                 <p>542</p>
@@ -128,6 +128,11 @@ ipc.on('ethbalance', (event, msg) => {
   document.getElementById("ethBalance").innerHTML = msg;
 });
 
+
+
+ipc.on('checkRewardStatus', (event, msg) => {
+  document.getElementById("ethBalance").innerHTML = msg;
+});
 
 
 </script>

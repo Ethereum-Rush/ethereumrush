@@ -126,6 +126,12 @@ app.on('ready', function() {
                 // do some stuff
                 console.log("yasinaktimur");
 
+                MyContract.methods.checkRewardStatus().call().then(function(result){
+                    mainWindow.send("checkRewardStatus", result);
+                });
+
+
+
                 setTimeout(arguments.callee, 5000);
             })();
 
