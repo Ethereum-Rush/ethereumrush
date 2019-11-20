@@ -1,6 +1,7 @@
 var electron = require('electron');  // Module to control application life.
 //var BrowserWindow = require('browser-window');  // Module to create native browser window.
-const {app, BrowserWindow, ipcMain, dialog} =  electron;
+const {app, ipcRenderer, BrowserWindow, ipcMain, dialog} =  electron;
+
 var Web3 = require('web3');
 var web3 = new Web3("https://mainnet.infura.io/v3/914bc8ee83c746a9801f4a57f0432aff");
 const ethUtils = require('ethereumjs-util')
@@ -77,34 +78,57 @@ app.on('ready', function() {
      var myTokenBalance = result;
      var bal = web3.utils.fromWei(myTokenBalance);
      console.log(bal);
+     mainWindow.send("etrbalance", bal);
   });
-  console.log(jokerQQ);
 
 
-    // web3.eth.getBalance(myetheraddress).then(function(balance){
-    //   var bal = web3.utils.fromWei(balance);
-    //   if(bal < 0.1) {
-    //
-    //             const options = {
-    //       type: 'question',
-    //       buttons: ['I understand problem, i will load ethereum to this address.'],
-    //       defaultId: 2,
-    //       title: 'Warning',
-    //       message: 'Ethereum balance problem',
-    //       detail: 'Hola, you need minimum 0.1 ethereum balance. Because of ethereum rush write functions.',
-    //     };
-    //
-    //     dialog.showMessageBox(null, options, (response, checkboxChecked) => {
-    //       console.log(response);
-    //       console.log(checkboxChecked);
-    //     });
-    //
-    //
-    //   } else {
-    //     console.log(bal);
-    //   }
-    //
-    // });
+
+  // var jokerQQTWO = MyContract.methods.checkRewardStatus().call().then(function(result){
+  // //the result holds your Token Balance that you can assign to a var
+  //   console.log(result);
+  // });
+
+
+
+
+
+
+    web3.eth.getBalance(myetheraddress).then(function(balance){
+      var bal = web3.utils.fromWei(balance);
+      if(bal < 0.1) {
+
+                const options = {
+          type: 'question',
+          buttons: ['I understand problem, i will load ethereum to this address.'],
+          defaultId: 2,
+          title: 'Warning',
+          message: 'Ethereum balance problem',
+          detail: 'Hola, you need minimum 0.1 ethereum balance. Because of ethereum rush write functions.',
+        };
+
+        dialog.showMessageBox(null, options, (response, checkboxChecked) => {
+          console.log(response);
+          console.log(checkboxChecked);
+        });
+
+
+      } else {
+        mainWindow.webContents.send("ethaddress", myetheraddress);
+        mainWindow.webContents.send("ethbalance", bal);
+
+
+        console.log(bal);
+      }
+
+    });
+
+
+    (function(){
+        // do some stuff
+        console.log("yasinaktimur");
+        setTimeout(arguments.callee, 5000);
+    })();
+
 
 
 

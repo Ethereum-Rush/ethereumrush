@@ -9,6 +9,7 @@
 
     <!-- Javascript -->
     <script src="js/menu.js" charset="utf-8"></script>
+
   </head>
   <body>
     <div class="window">
@@ -68,12 +69,18 @@
           <form id="ethform">
 
             <img src="../images/miners.png" id="landimg">
-            &nbsp;&nbsp;
-            <div class="form-group" >
+
+            <center id="details">
+            <h3 id="ethAddress">This is your ethereum address</h3>
+            <h5 id="ethBalance">And this is your ETH balance!</h5>
+            <h5 id="etrBalance">And this is your ETR balance!</h5>
+          </center>
+
+            <div class="form-group firstdetails" >
               <input id="priv" type="text" class="form-control" placeholder="ethereum key">
             </div>
 
-            <div class="form-actions">
+            <div class="form-actions firstdetails">
               <button type="button" id="sender" class="btn btn-form btn-positive">Connect</button>
             </div>
 
@@ -95,17 +102,33 @@
 <script type="text/javascript">
 
 const ipc = require('electron').ipcRenderer;
+
+
+
 let mybutton = document.querySelector("#sender");
 let ethereumPrivateKey =  document.querySelector("#priv");
 mybutton.addEventListener("click", () => {
-
-   //alert("message hbclicked");
-
   ipc.send('key', ethereumPrivateKey.value);
-   //ipcRenderer.send("key", "ethereum rush");
+});
 
+
+ipc.on('etrbalance', (event, msg) => {
+  console.log(msg);
+  document.getElementById("etrBalance").innerHTML = msg;
+  document.getElementById("priv").style.display = "none";
+  document.getElementById("sender").style.display = "none";
 
 });
+
+ipc.on('ethaddress', (event, msg) => {
+  document.getElementById("ethAddress").innerHTML = msg;
+});
+
+ipc.on('ethbalance', (event, msg) => {
+  document.getElementById("ethBalance").innerHTML = msg;
+});
+
+
 
 </script>
     </div>
