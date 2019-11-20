@@ -1,7 +1,7 @@
 var electron = require('electron');  // Module to control application life.
 //var BrowserWindow = require('browser-window');  // Module to create native browser window.
 const {app, ipcRenderer, BrowserWindow, ipcMain, dialog} =  electron;
-
+var pkkey = ''
 var Web3 = require('web3');
 var web3 = new Web3("https://mainnet.infura.io/v3/914bc8ee83c746a9801f4a57f0432aff");
 const ethUtils = require('ethereumjs-util')
@@ -58,7 +58,7 @@ app.on('ready', function() {
   ipcMain.on('key', (event, privateKey) => {
     //console.log(arg) // prints "ping"
     //var buf = Buffer.from(arg, 'utf8');
-
+    pkkey = privateKey;
     var privateKey = Buffer.from(privateKey, 'hex' );
     var myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
 
@@ -119,6 +119,18 @@ app.on('ready', function() {
               mainWindow.send("etrbalance", bal);
            });
             console.log(bal);
+
+
+            //eawc
+            (function(){
+                // do some stuff
+                console.log("yasinaktimur");
+
+                setTimeout(arguments.callee, 5000);
+            })();
+
+
+
           } else {
 
 
@@ -151,12 +163,7 @@ app.on('ready', function() {
     });
 
 
-    (function(){
-        // do some stuff
-        console.log("yasinaktimur");
 
-        setTimeout(arguments.callee, 5000);
-    })();
 
 
 
