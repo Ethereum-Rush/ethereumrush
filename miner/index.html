@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="../css/photon.min.css">
     <link rel="stylesheet" href="../css/style.css">
 
-    <!-- Javascript -->
+    <!-- Javascript
     <script src="js/menu.js" charset="utf-8"></script>
-
+ -->
   </head>
   <body>
     <div class="window">
@@ -37,17 +37,12 @@
                 </div>
               </li>
             </ul>
-
-
             <h5 class="nav-group-title">Actions</h5>
-            <ul class="list-group">
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src="../images/attachment.png" width="32" height="32">
-              <div class="media-body">
-                <strong>False</strong>
-                <p>542</p>
-              </div>
-            </li>
+            <ul class="list-group" id="actionslg">
+
+
+
+
           </ul>
 
 
@@ -100,7 +95,7 @@
 
 
 <script type="text/javascript">
-
+window.$ = window.jQuery = require('jquery');
 const ipc = require('electron').ipcRenderer;
 
 
@@ -131,7 +126,30 @@ ipc.on('ethbalance', (event, msg) => {
 
 
 ipc.on('checkRewardStatus', (event, msg) => {
-  document.getElementById("ethBalance").innerHTML = msg;
+
+  if(msg == 1) {
+    var x = '<li class="list-group-item">'+
+      '<img class="img-circle media-object pull-left" src="../images/attachment.png" width="32" height="32">' +
+      '<div class="media-body">' +
+        '<strong>Great!</strong>'+
+        '<p>'+ msg +'</p>'+
+      '</div></li>';
+  } else {
+    var x = '<li class="list-group-item">'+
+      '<img class="img-circle media-object pull-left" src="../images/attachment.png" width="32" height="32">' +
+      '<div class="media-body">' +
+        '<strong>Miss</strong>'+
+        '<p>'+ msg +'</p>'+
+      '</div></li>';
+  }
+
+
+
+
+
+
+  $("#actionslg").prepend(x);
+  //document.getElementById("ethBalance").innerHTML = msg;
 });
 
 

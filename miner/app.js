@@ -124,15 +124,14 @@ app.on('ready', function() {
             //eawc
             (function(){
                 // do some stuff
-                console.log("yasinaktimur");
+                console.log("checked successfully.");
 
                 MyContract.methods.checkRewardStatus().call().then(function(result){
+
                     mainWindow.send("checkRewardStatus", result);
                 });
 
-
-
-                setTimeout(arguments.callee, 5000);
+                setTimeout(arguments.callee, 10000);
             })();
 
 

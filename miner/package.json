@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "electron": "^7.1.1",
+    "jquery": "^3.4.1",
+    "remote": "^0.2.6",
     "web3": "^1.2.4"
   }
 }
