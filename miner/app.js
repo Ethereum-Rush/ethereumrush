@@ -73,16 +73,6 @@ app.on('ready', function() {
 
 
 
-   var jokerQQ = MyContract.methods.balanceOf(myetheraddress).call().then(function(result){
-   //the result holds your Token Balance that you can assign to a var
-     var myTokenBalance = result;
-     var bal = web3.utils.fromWei(myTokenBalance);
-     console.log(bal);
-     mainWindow.send("etrbalance", bal);
-  });
-
-
-
   // var jokerQQTWO = MyContract.methods.checkRewardStatus().call().then(function(result){
   // //the result holds your Token Balance that you can assign to a var
   //   console.log(result);
@@ -113,11 +103,49 @@ app.on('ready', function() {
 
 
       } else {
-        mainWindow.webContents.send("ethaddress", myetheraddress);
-        mainWindow.webContents.send("ethbalance", bal);
 
 
-        console.log(bal);
+       MyContract.methods.checkAddrMinerStatus(myetheraddress).call().then(function(result){
+
+
+          if(result) {
+            mainWindow.webContents.send("ethaddress", myetheraddress);
+            mainWindow.webContents.send("ethbalance", bal);
+            var jokerQQ = MyContract.methods.balanceOf(myetheraddress).call().then(function(result){
+            //the result holds your Token Balance that you can assign to a var
+              var myTokenBalance = result;
+              var bal = web3.utils.fromWei(myTokenBalance);
+              console.log(bal);
+              mainWindow.send("etrbalance", bal);
+           });
+            console.log(bal);
+          } else {
+
+
+            const options = {
+            type: 'question',
+            buttons: ['Close.'],
+            defaultId: 2,
+            title: 'Warning',
+            message: 'Youre not a miner',
+            detail: 'First of all, Please download firefox and install metamask then became a miner. using becameaminer function. You need lock some Ethereum Rush for became a miner.',
+            };
+
+            dialog.showMessageBox(null, options, (response, checkboxChecked) => {
+            console.log(response);
+            console.log(checkboxChecked);
+            });
+          }
+
+
+
+       });
+
+
+
+
+
+
       }
 
     });
@@ -126,6 +154,7 @@ app.on('ready', function() {
     (function(){
         // do some stuff
         console.log("yasinaktimur");
+
         setTimeout(arguments.callee, 5000);
     })();
 
