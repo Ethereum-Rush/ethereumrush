@@ -28,16 +28,12 @@
 
 
               <h5 class="nav-group-title">Received</h5>
-              <ul class="list-group">
-              <li class="list-group-item">
-                <img class="img-rounded media-object pull-left" src="../images/received.png" width="32" height="32">
-                <div class="media-body">
-                  <strong>240 ETR.</strong>
-                  <p>Go TXID.</p>
-                </div>
-              </li>
+              <ul class="list-group" id="receivelg">
+
+
             </ul>
             <h5 class="nav-group-title">Actions</h5>
+
             <ul class="list-group" id="actionslg">
 
 
@@ -142,15 +138,27 @@ ipc.on('checkRewardStatus', (event, msg) => {
         '<p>'+ msg +'</p>'+
       '</div></li>';
   }
-
-
-
-
-
-
   $("#actionslg").prepend(x);
   //document.getElementById("ethBalance").innerHTML = msg;
 });
+
+
+
+ipc.on('rewardSuccessful', (event, msg) => {
+
+    var x = '<li class="list-group-item">'+
+      '<img class="img-rounded media-object pull-left" src="../images/received.png" width="32" height="32">'+
+      '<div class="media-body">'+
+        '<strong>Payment in process</strong>'+
+        '<a href="https://etherscan.com/tx/'+msg+'">Check transaction.</a>'+
+      '</div></li>';
+  $("#receivelg").prepend(x);
+  //document.getElementById("ethBalance").innerHTML = msg;
+});
+
+
+
+
 
 
 </script>
