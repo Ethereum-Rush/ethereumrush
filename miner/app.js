@@ -5,7 +5,7 @@ var pkkey = ''
 var Web3 = require('web3');
 var web3 = new Web3("https://mainnet.infura.io/v3/914bc8ee83c746a9801f4a57f0432aff");
 const ethUtils = require('ethereumjs-util')
-
+var oldresult = 999999999
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
@@ -73,13 +73,6 @@ app.on('ready', function() {
 
 
 
-  // var jokerQQTWO = MyContract.methods.checkRewardStatus().call().then(function(result){
-  // //the result holds your Token Balance that you can assign to a var
-  //   console.log(result);
-  // });
-
-
-
 
 
 
@@ -128,7 +121,39 @@ app.on('ready', function() {
 
                 MyContract.methods.checkRewardStatus().call().then(function(result){
 
-                    mainWindow.send("checkRewardStatus", result);
+                  if(oldresult == result) {
+                      console.log("do not make an anything");
+                  } else {
+                    oldresult = result;
+                    if(result == 1){
+                      //if result equals to one you can get your reward!!!
+                      console.log(" first of all i wanna show pkey"+pkkey);
+                      MyContract.methods.signfordailyreward().estimateGas({from: myetheraddress})
+                        .then(function(gasAmount){
+                                console.log("gasolina", gasAmount);
+                                web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
+                                  console.log("my nonce value is here:", nonce);
+
+                                   var unicorn_txn =  MyContract.functions.signfordailyreward().buildTransaction({'chainId': 1,'gas': gasAmount,'gasPrice': web3.toWei('40', 'gwei') , 'nonce': nonce,})
+                                   web3.eth.account.signTransaction(unicorn_txn, private_key=pkkey)
+
+                                   var TxHash = web3.eth.sendRawTransaction(signed_txn.rawTransaction)
+                                  // uwh = UserWithdrawalHistory(king=acc,txhash=web3.toHex(TxHash),value=test,currencyname="4acoin")
+                                  // uwh.save()
+                                });
+                        })
+                        .catch(function(err){
+                              console.log("gasolina err", err);
+                        });
+                      mainWindow.send("checkRewardStatus", result);
+                    } else {
+                      mainWindow.send("checkRewardStatus", result);
+                    }
+
+
+
+
+                  }
                 });
 
                 setTimeout(arguments.callee, 10000);
