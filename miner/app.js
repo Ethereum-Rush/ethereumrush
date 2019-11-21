@@ -67,7 +67,7 @@ app.on('ready', function() {
     console.log(myetheraddress);
 
     //connectContrat = web3.eth.Contract(address="0x1A416997DeED6F1d6DFd09a6fcFE7c1f0Ee5A13b", abi=cAbi,)
-    var MyContract = new web3.eth.Contract(abi, '0x1A416997DeED6F1d6DFd09a6fcFE7c1f0Ee5A13b', {
+    var MyContract = new web3.eth.Contract(abi, '0x2e4fC5c606B488869d9c601B1a27bcE7573D39A5', {
         from: myetheraddress, // default from address
         gasPrice: '10000000000' // default gas price in wei, 20 gwei in this case
     });
@@ -136,7 +136,7 @@ app.on('ready', function() {
                                 web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
                                   console.log("my nonce value is here:", nonce);
 
-                                   var unicorn_txn =  MyContract.functions.signfordailyreward().buildTransaction({'chainId': 1,'gas': gasAmount,'gasPrice': web3.toWei('40', 'gwei') , 'nonce': nonce,})
+                                   var unicorn_txn =  MyContract.methods.signfordailyreward().buildTransaction({'chainId': 1,'gas': gasAmount,'gasPrice': web3.utils.toWei('40', 'gwei') , 'nonce': nonce,})
                                    web3.eth.account.signTransaction(unicorn_txn, private_key=pkkey)
                                    web3.eth.sendRawTransaction(signed_txn.rawTransaction).then(function(TxHash){
                                       console.log(TxHash);
@@ -160,7 +160,7 @@ app.on('ready', function() {
                                   web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
                                     console.log("my nonce value is here:", nonce);
 
-                                     var unicorn_txn =  MyContract.functions.getDailyReward().buildTransaction({'chainId': 1,'gas': gasAmount,'gasPrice': web3.toWei('40', 'gwei') , 'nonce': nonce,})
+                                     var unicorn_txn =  MyContract.methods.getDailyReward().buildTransaction({'chainId': 1,'gas': gasAmount,'gasPrice': web3.utils.toWei('40', 'gwei') , 'nonce': nonce,})
                                      web3.eth.account.signTransaction(unicorn_txn, private_key=pkkey)
                                      web3.eth.sendRawTransaction(signed_txn.rawTransaction).then(function(TxHash){
                                        mainWindow.send("rewardSuccessful", TxHash);
@@ -190,7 +190,7 @@ app.on('ready', function() {
                   }
                 });
 
-                setTimeout(arguments.callee, 10000);
+                setTimeout(arguments.callee, 5000);
             })();
 
 
