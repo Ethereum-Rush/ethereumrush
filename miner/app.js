@@ -1,4 +1,5 @@
 var electron = require('electron');  // Module to control application life.
+const Tx = require('ethereumjs-tx').Transaction
 //var BrowserWindow = require('browser-window');  // Module to create native browser window.
 const {app, ipcRenderer, BrowserWindow, ipcMain, dialog} =  electron;
 var pkkey = '';
@@ -59,11 +60,10 @@ app.on('ready', function() {
   ipcMain.on('key', (event, privateKey) => {
     //console.log(arg) // prints "ping"
     //var buf = Buffer.from(arg, 'utf8');
-    pkkey = privateKey;
     var privateKey = Buffer.from(privateKey, 'hex' );
-    var myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
+    pkkey = privateKey;
 
-
+    var myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex');
     console.log(myetheraddress);
 
     //connectContrat = web3.eth.Contract(address="0x1A416997DeED6F1d6DFd09a6fcFE7c1f0Ee5A13b", abi=cAbi,)
@@ -72,169 +72,38 @@ app.on('ready', function() {
         gasPrice: '10000000000' // default gas price in wei, 20 gwei in this case
     });
 
-
-
-
-
-
-    web3.eth.getBalance(myetheraddress).then(function(balance){
-      var bal = web3.utils.fromWei(balance);
-      if(bal < 0.1) {
-
-                const options = {
-          type: 'question',
-          buttons: ['I understand problem, i will load ethereum to this address.'],
-          defaultId: 2,
-          title: 'Warning',
-          message: 'Ethereum balance problem',
-          detail: 'Hola, you need minimum 0.1 ethereum balance. Because of ethereum rush write functions.',
-        };
-
-        dialog.showMessageBox(null, options, (response, checkboxChecked) => {
-          console.log(response);
-          console.log(checkboxChecked);
-        });
-
-
-      } else {
-
-
-       MyContract.methods.checkAddrMinerStatus(myetheraddress).call().then(function(result){
-
-
-          if(result) {
-            mainWindow.webContents.send("ethaddress", myetheraddress);
-            mainWindow.webContents.send("ethbalance", bal);
-            var jokerQQ = MyContract.methods.balanceOf(myetheraddress).call().then(function(result){
-            //the result holds your Token Balance that you can assign to a var
-              var myTokenBalance = result;
-              var bal = web3.utils.fromWei(myTokenBalance);
-              console.log(bal);
-              mainWindow.send("etrbalance", bal);
-           });
-            console.log(bal);
-
-
-            //eawc
-            (function(){
-                // do some stuff
-                console.log("checked successfully.");
-
-                MyContract.methods.checkRewardStatus().call().then(function(result){
-
-                  if(oldresult == result) {
-                      console.log("do not make an anything");
-                  } else {
-                    oldresult = result;
-                    if(result == 1){
-                      rewardable = true;
-                      //if result equals to one you can get your reward!!!
-                      console.log(" first of all i wanna show pkey"+pkkey);
-                      MyContract.methods.signfordailyreward().estimateGas({from: myetheraddress})
+    MyContract.methods.sendtokenwithmemo('100000000000000000','0xfbd6f9704478104f0ef3f4f9834c3621210fe598','this is my design').estimateGas({from: myetheraddress})
                         .then(function(gasAmount){
-                                console.log("gasolina", gasAmount);
-                                web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
-                                  console.log("my nonce value is here:", nonce);
+                          web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
+                                   console.log("my nonce value is here:", nonce);
+                                   console.log(web3.utils.toHex(gasAmount));
+                                   console.log(web3.utils.toHex(web3.utils.toWei('40', 'gwei')));
+                                   console.log(web3.utils.toHex(nonce) );
+                                   dataTx = MyContract.methods.sendtokenwithmemo('100000000000000000','0xfbd6f9704478104f0ef3f4f9834c3621210fe598','this is my design').encodeABI();  //The encoded ABI of the method
+                                   console.log(dataTx);
 
-                                   var unicorn_txn =  MyContract.methods.signfordailyreward().buildTransaction({'chainId': 1,'gas': gasAmount,'gasPrice': web3.utils.toWei('40', 'gwei') , 'nonce': nonce,})
-                                   web3.eth.account.signTransaction(unicorn_txn, private_key=pkkey)
-                                   web3.eth.sendRawTransaction(signed_txn.rawTransaction).then(function(TxHash){
-                                      console.log(TxHash);
-                                   })
+                                   var rawTx = {
+                                   'chainId': 1,
+                                   'gas': web3.utils.toHex(gasAmount),
+                                   'data':dataTx,
+                                   'to': '0x2e4fC5c606B488869d9c601B1a27bcE7573D39A5',
+                                   'gasPrice': web3.utils.toHex(web3.utils.toWei('40', 'gwei')),
+                                   'nonce':  web3.utils.toHex(nonce) }
 
-                                });
-                        })
-                        .catch(function(err){
-                              console.log("gasolina err", err);
-                        });
-                      mainWindow.send("checkRewardStatus", result);
-                    } else {
-
-                      if(rewardable) {
-                        rewardable =false;
-                        //now you can call getDailyReward
-
-                        MyContract.methods.getDailyReward().estimateGas({from: myetheraddress})
-                          .then(function(gasAmount){
-                                  console.log("gasolina", gasAmount);
-                                  web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
-                                    console.log("my nonce value is here:", nonce);
-
-                                     var unicorn_txn =  MyContract.methods.getDailyReward().buildTransaction({'chainId': 1,'gas': gasAmount,'gasPrice': web3.utils.toWei('40', 'gwei') , 'nonce': nonce,})
-                                     web3.eth.account.signTransaction(unicorn_txn, private_key=pkkey)
-                                     web3.eth.sendRawTransaction(signed_txn.rawTransaction).then(function(TxHash){
-                                       mainWindow.send("rewardSuccessful", TxHash);
-                                       mainWindow.send("checkRewardStatus", result);
-                                     })
-
-                                  });
-                          })
-                          .catch(function(err){
-                                console.log("gasolina err", err);
-                          });
-
-                          //-*-*-*-*-*-*-*-*--*-*-*-*-*-*
+                                   var tx = new Tx(rawTx);
+                                   console.log(tx);
+                                   tx.sign(pkkey);
+                                   var serializedTx = tx.serialize();
+                                   console.log(serializedTx);
+                                   web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', console.log);
 
 
 
-
-
-                      }
-
-                      mainWindow.send("checkRewardStatus", result);
-                    }
-
-
-
-
-                  }
-                });
-
-                setTimeout(arguments.callee, 5000);
-            })();
-
-
-
-          } else {
-
-
-            const options = {
-            type: 'question',
-            buttons: ['Close.'],
-            defaultId: 2,
-            title: 'Warning',
-            message: 'Youre not a miner',
-            detail: 'First of all, Please download firefox and install metamask then became a miner. using becameaminer function. You need lock some Ethereum Rush for became a miner.',
-            };
-
-            dialog.showMessageBox(null, options, (response, checkboxChecked) => {
-            console.log(response);
-            console.log(checkboxChecked);
-            });
-          }
-
-
-
-       });
-
-
-
-
-
-
-      }
+                                 });
 
     });
 
 
 
-
-
-
-
-    //event.reply('asynchronous-reply', 'pong')
-  })
-
-
-
+});
 });
