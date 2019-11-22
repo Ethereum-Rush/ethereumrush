@@ -149,8 +149,8 @@ ipc.on('rewardSuccessful', (event, msg) => {
     var x = '<li class="list-group-item">'+
       '<img class="img-rounded media-object pull-left" src="../images/received.png" width="32" height="32">'+
       '<div class="media-body">'+
-        '<strong>Payment in process</strong>'+
-        '<a href="https://etherscan.com/tx/'+msg+'">Check transaction.</a>'+
+        '<strong>New Sign</strong>'+
+        '<p>Block: '+msg+'</p>'+
       '</div></li>';
   $("#receivelg").prepend(x);
   //document.getElementById("ethBalance").innerHTML = msg;
