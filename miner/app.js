@@ -206,6 +206,7 @@ app.on('ready', function() {
 
 
     function getrewardnow(){
+      console.log("here need works after 30 minutes");
       MyContract.methods.getDailyReward(greatBlock).estimateGas({from: myetheraddress})
         .then(function(gasAmount){
 
@@ -237,7 +238,7 @@ app.on('ready', function() {
                 });
         })
         .catch(function(err){
-              console.log("gasolina err", err);
+              console.log("gasolina err for getrewardnow", err);
         });
     }
   });
