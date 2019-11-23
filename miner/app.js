@@ -126,7 +126,10 @@ app.on('ready', function() {
                       console.log("do not make an anything");
                   } else {
                     oldresult = result[0];
-                    if(result[0] == 1) {
+                    if(result[0] == 1 ) {
+                      if((result[1] - greatBlock) <= 100) {
+                          mainWindow.send("checkRewardStatus", "pass");
+                      } else {
                       greatBlock = result[1];
                       console.log(greatBlock);
 
@@ -170,6 +173,7 @@ app.on('ready', function() {
                       mainWindow.send("checkRewardStatus", result[0]);
                       console.log("you can get your reward after 21 minutes!!!");
                       setTimeout(getrewardnow, 1960000);
+                    }
                     } else {
                         mainWindow.send("checkRewardStatus", result[0]);
 
