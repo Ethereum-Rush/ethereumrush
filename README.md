@@ -1,4 +1,4 @@
-# Welcome to Ethereum Rush's Proof of live miner program
+## Proof of live miner
 
 It is the most popular and original POL Miner node script for electron.js. The code is exceptionally portable and has been used successfully on a very broad range of MAC OS X, Wind64 andubuntu, systems and hardware.
 
