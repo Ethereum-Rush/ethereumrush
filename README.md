@@ -50,7 +50,7 @@ electron-packager . miner --overwrite --asar=true --platform=linux --arch=x64 --
 
 
 
-## Link
+## Links
 - First of all you need became a miner at this contract  **[Ethereum RUSH test contract](https://etherscan.io/address/0x61d6d033348f6bf5939548e4bab30f1198a64d0a#writeContract)**
 - Please install metamask on your browser  **[Metamask offical website](https://metamask.io/)**
 - Download Mac OSX Release from here  **[POL miner for mac](https://github.com/Ethereum-Rush/EthereumRushMiner/releases)**
