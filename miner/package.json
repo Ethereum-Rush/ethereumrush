@@ -1,5 +1,6 @@
 {
   "name": "miner",
+  "productName": "POL Miner",
   "version": "1.0.0",
   "description": "Proof of live currency miner",
   "main": "app.js",
@@ -8,9 +9,9 @@
     "start": "electron ."
   },
   "devDependencies": {
-    "electron": "^7.1.1",
+    "electron": "^7.1.2",
+    "electron-packager": "^14.1.1",
     "jquery": "^3.4.1",
-    "remote": "^0.2.6",
     "web3": "^1.2.4"
   }
 }

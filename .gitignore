@@ -1,5 +1,5 @@
 /miner/node_modules
-
+/miner/release-builds
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
 
@@ -97,5 +97,4 @@ public/
 .dynamodb/
 
 # End of https://www.gitignore.io/api/node
-
 
