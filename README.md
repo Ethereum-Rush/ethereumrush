@@ -2,7 +2,7 @@
 
 It is the most popular and original POL Miner node script for electron.js. The code is exceptionally portable and has been used successfully on a very broad range of MAC OS X, Wind64 andubuntu, systems and hardware.
 
-# Contact
+## Contact
 
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/ethereumrush-github/)
 [![GitHub Issues](https://img.shields.io/badge/open%20issues-0-yellow.svg)](https://github.com/omgbbqhaxx/EthereumRushMiner/issues)
@@ -24,7 +24,7 @@ Ubuntu  | [![TravisCI](https://img.shields.io/badge/build-passing-brightgreen.sv
 Windows 64         | [![AppVeyor](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://ci.appveyor.com/project/cloudbank/cloudbank-github)
 
 
-# EthereumRushMiner
+## EthereumRushMiner
 ```shell
 npm install electron --save-dev
 npm install web3  --save-dev
