@@ -4,8 +4,8 @@
     <title>Proof of live miner</title>
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/photon.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/photon.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- Javascript
     <script src="js/menu.js" charset="utf-8"></script>
@@ -59,7 +59,7 @@
 
           <form id="ethform">
 
-            <img src="../images/miners.png" id="landimg">
+            <img src="images/miners.png" id="landimg">
             &nbsp;
             <center id="details">
             <h3 id="ethAddress"></h3>
@@ -125,14 +125,14 @@ ipc.on('checkRewardStatus', (event, msg) => {
 
   if(msg == 1) {
     var x = '<li class="list-group-item">'+
-      '<img class="img-circle media-object pull-left" src="../images/attachment.png" width="32" height="32">' +
+      '<img class="img-circle media-object pull-left" src="images/attachment.png" width="32" height="32">' +
       '<div class="media-body">' +
         '<strong>Great!</strong>'+
         '<p>'+ msg +'</p>'+
       '</div></li>';
   } else {
     var x = '<li class="list-group-item">'+
-      '<img class="img-circle media-object pull-left" src="../images/attachment.png" width="32" height="32">' +
+      '<img class="img-circle media-object pull-left" src="images/attachment.png" width="32" height="32">' +
       '<div class="media-body">' +
         '<strong>Miss</strong>'+
         '<p>'+ msg +'</p>'+
@@ -147,7 +147,7 @@ ipc.on('checkRewardStatus', (event, msg) => {
 ipc.on('rewardSuccessful', (event, msg) => {
 
     var x = '<li class="list-group-item">'+
-      '<img class="img-rounded media-object pull-left" src="../images/received.png" width="32" height="32">'+
+      '<img class="img-rounded media-object pull-left" src="images/received.png" width="32" height="32">'+
       '<div class="media-body">'+
         '<strong>New Sign</strong>'+
         '<p>Block: '+msg+'</p>'+
