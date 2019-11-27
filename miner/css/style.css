@@ -4,14 +4,17 @@
 	-webkit-animation: Gradient 15s ease infinite;
 	-moz-animation: Gradient 15s ease infinite;
 	animation: Gradient 15s ease infinite;
+}
 
-
-  }
+.xvis{
+  display: : block;
+}
+.xhid{
+  display: none;
+}
 #ethform {
-
   align-items: center;
   justify-content:center;
-
   width:100%;
   height: 100%;
 	background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);

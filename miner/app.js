@@ -7,6 +7,7 @@ var Web3 = require('web3');
 var web3 = new Web3("https://mainnet.infura.io/v3/914bc8ee83c746a9801f4a57f0432aff");
 const ethUtils = require('ethereumjs-util')
 var oldresult = 999999999;
+var myetheraddress;
 const globalGwei = "40";
 const contractAddress = "0x6F371CA338bbddd0baF719E1D5d0797cCE20774f"
 // Keep a global reference of the window object, if you don't, the window will
@@ -59,7 +60,45 @@ app.on('ready', function() {
   });
 
 
+ipcMain.on('beminer', (event, mamount) => {
 
+      var MyContract = new web3.eth.Contract(abi, contractAddress, {
+          from: myetheraddress, // default from address
+          gasPrice: '40000000000' // default gas price in wei, 20 gwei in this case
+      });
+
+
+    MyContract.methods.becameaminer(parseInt(mamount)).estimateGas({from: myetheraddress})
+      .then(function(gasAmount){
+
+              console.log("gasolina for getDailyReward", gasAmount);
+              web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
+                console.log("my nonce value is here:", nonce);
+
+                dataTx = MyContract.methods.becameaminer(mamount).encodeABI();  //The encoded ABI of the method
+                 var rawTx = {
+                 'chainId': 1,
+                 'gas': web3.utils.toHex(gasAmount),
+                 'data':dataTx,
+                 'to': contractAddress,
+                 'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
+                 'nonce':  web3.utils.toHex(nonce) }
+
+                 var tx = new Tx(rawTx);
+                 console.log(tx);
+                 tx.sign(pkkey);
+                 var serializedTx = tx.serialize();
+                 console.log(serializedTx);
+                 web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', console.log);
+              });
+      })
+      .catch(function(err){
+            console.log("gasolina err for getrewardnow", err);
+      });
+
+
+
+});
 
 
   ipcMain.on('key', (event, privateKey) => {
@@ -67,7 +106,7 @@ app.on('ready', function() {
     //var buf = Buffer.from(arg, 'utf8');
     var privateKey = Buffer.from(privateKey, 'hex' );
     pkkey = privateKey;
-    var myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
+    myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
 
 
     console.log(myetheraddress);
@@ -188,20 +227,13 @@ app.on('ready', function() {
 
           } else {
 
+            MyContract.methods.getmaximumAverage().call().then(function(result){
+                var mininmumAvarage = ((result / 10**18) / 100) + 1
+                console.log(mininmumAvarage);
+                mainWindow.send("minerequired", mininmumAvarage);
 
-            const options = {
-            type: 'question',
-            buttons: ['Close.'],
-            defaultId: 2,
-            title: 'Warning',
-            message: 'Youre not a miner',
-            detail: 'First of all, Please download firefox and install metamask then became a miner. using becameaminer function. You need lock some Ethereum Rush for became a miner.',
-            };
-
-            dialog.showMessageBox(null, options, (response, checkboxChecked) => {
-            console.log(response);
-            console.log(checkboxChecked);
             });
+
           }
        });
       }
