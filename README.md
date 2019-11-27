@@ -35,17 +35,20 @@ npm install web3 --save-dev
 
 ## Mac OS X
 ```shell
-electron-packager . --overwrite --platform=darwin --arch=x64 --icon=../images/mnr.icns --prune=true --out=release-builds
+electron-packager . --overwrite --platform=darwin --arch=x64 --icon=images/mnr.icns --prune=true --out=release-builds
 ```
 
 ## Windows
 ```shell
-electron-packager . miner --overwrite --platform=win32 --arch=ia32 --icon=../images/mnr.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="POL Miner"
+electron-packager . miner --overwrite --platform=win32 --arch=ia32 --icon=images/mnr.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="POL Miner"
+
+electron-packager . miner --overwrite --platform=win32 --arch=x64 --icon=images/mnr.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="POL Miner"
+
 ```
 
 ## For Linux Computers
 ```shell
-electron-packager . miner --overwrite --asar=true --platform=linux --arch=x64 --icon=../images/mrn.png --prune=true --out=release-builds
+electron-packager . miner --overwrite --asar=true --platform=linux --arch=x64 --icon=images/mrn.png --prune=true --out=release-builds
 ```
 
 
