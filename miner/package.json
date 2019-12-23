@@ -12,6 +12,14 @@
     "electron": "^7.1.2",
     "electron-packager": "^14.1.1",
     "jquery": "^3.4.1",
-    "web3": "^1.2.4"
+    "web3": "^1.2.4",
+    "ethereumjs-tx": "^2.1.1"
+  },
+  "dependencies": {
+    "electron": "^7.1.2",
+    "electron-packager": "^14.1.1",
+    "jquery": "^3.4.1",
+    "web3": "^1.2.4",
+    "ethereumjs-tx": "^2.1.1"
   }
 }

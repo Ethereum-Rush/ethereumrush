@@ -86,6 +86,11 @@
               <input id="priv" type="text" class="form-control" placeholder="ethereum key">
             </div>
 
+            <div class="form-group firstdetails" >
+              <input id="provider" type="text" class="form-control" placeholder="Web3 Provider">
+            </div>
+
+
             <div class="form-actions firstdetails">
               <button type="button" id="sender" class="btn btn-form btn-positive">Connect</button>
             </div>
@@ -113,9 +118,11 @@ const ipc = require('electron').ipcRenderer;
 
 let mybutton = document.querySelector("#sender");
 let ethereumPrivateKey =  document.querySelector("#priv");
+let provider = document.querySelector("#provider");
 
 mybutton.addEventListener("click", () => {
-  ipc.send('key', ethereumPrivateKey.value);
+  var x = {"pkey": ethereumPrivateKey.value, "privder": provider.value}
+  ipc.send('key', x);
 });
 
 let beaminerbutn =   document.querySelector("#msender");
@@ -135,6 +142,7 @@ ipc.on('etrbalance', (event, msg) => {
   document.getElementById("etrBalance").innerHTML = msg;
   document.getElementById("priv").style.display = "none";
   document.getElementById("sender").style.display = "none";
+  document.getElementById("provider").style.display = "none";
 
 });
 

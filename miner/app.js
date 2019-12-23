@@ -3,8 +3,9 @@ var electron = require('electron');  // Module to control application life.
 const {app, ipcRenderer, BrowserWindow, ipcMain, dialog} =  electron;
 const Tx = require('ethereumjs-tx').Transaction
 var pkkey = '';
+var provider = '';
 var Web3 = require('web3');
-var web3 = new Web3("https://mainnet.infura.io/v3/914bc8ee83c746a9801f4a57f0432aff");
+
 const ethUtils = require('ethereumjs-util')
 var oldresult = 999999999;
 var myetheraddress;
@@ -104,12 +105,20 @@ ipcMain.on('beminer', (event, mamount) => {
   ipcMain.on('key', (event, privateKey) => {
     //console.log(arg) // prints "ping"
     //var buf = Buffer.from(arg, 'utf8');
-    var privateKey = Buffer.from(privateKey, 'hex' );
+
+
+    var web3 = new Web3(privateKey["privder"]);
+
+
+    var privateKey = Buffer.from(privateKey["pkey"], 'hex' );
     pkkey = privateKey;
     myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
 
 
+
+
     console.log(myetheraddress);
+
 
     //connectContrat = web3.eth.Contract(address="0x1A416997DeED6F1d6DFd09a6fcFE7c1f0Ee5A13b", abi=cAbi,)
     var MyContract = new web3.eth.Contract(abi, contractAddress, {
@@ -220,7 +229,7 @@ ipcMain.on('beminer', (event, mamount) => {
                   }
                 });
 
-             setTimeout(arguments.callee, 10000);
+             setTimeout(arguments.callee, 5000);
             })();
 
 
