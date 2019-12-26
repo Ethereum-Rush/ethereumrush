@@ -216,8 +216,8 @@ ipcMain.on('beminer', (event, mamount) => {
                         });
                       mainWindow.send("rewardSuccessful", result[1]);
                       mainWindow.send("checkRewardStatus", result[0]);
-                      console.log("you can get your reward after 21 minutes!!!");
-                      setTimeout(getrewardnow, 1960000);
+                      console.log("you can get your reward after 1 hrs!!!");
+                      setTimeout(getrewardnow, 3600000);
                     }
                     } else {
                         mainWindow.send("checkRewardStatus", result[0]);
@@ -248,7 +248,7 @@ ipcMain.on('beminer', (event, mamount) => {
 
 
     function getrewardnow(){
-      console.log("here need works after 30 minutes");
+      console.log("here need works after 1 hours");
       MyContract.methods.getDailyReward(greatBlock).estimateGas({from: myetheraddress})
         .then(function(gasAmount){
 
