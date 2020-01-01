@@ -1,6 +1,8 @@
-# Proof of live miner
+# Ethereum Rush
 
-It is the most popular and original POL Miner node script for electron.js. The code is exceptionally portable and has been used successfully on a very broad range of MAC OS X, Wind64 and ubuntu, systems and hardware.
+First ever proof of live mineable erc20 token.
+Download miner app and start solo mining in 5 minutes. 
+- Download miner programs for mac and windows [from here](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/1.0.7.1).
 
 ## Contact
 
