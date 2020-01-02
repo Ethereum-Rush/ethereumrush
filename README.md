@@ -12,21 +12,6 @@ Download miner app and start solo mining in 5 minutes.
 - Chat in [ethereumrush-github channel on Gitter](https://gitter.im/ethereumrush-github).
 - Report bugs, issues or feature requests using [GitHub issues](issues/new).
 
-
-
-# Getting Started
-
-The Ethereum Rush Documentation site hosts the **[Ethereum RUSH homepage](https://ethereumrush.org/)**, which
-has a Quick Start section.
-
-Operating system | Status
----------------- | ----------
-Max OS X Darwin  | [![TravisCI](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://travis-ci.org/ethereumrush/ethereumrush-github)
-Ubuntu  | [![TravisCI](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://travis-ci.org/ethereumrush/ethereumrush-github)
-Windows 64         | [![AppVeyor](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://ci.appveyor.com/project/ethereumrush/ethereumrush-github)
-
-
-
 ## Download and start minig.
 
 The Ethereum Mining programs  **[Ethereum RUSH Miner program](https://github.com/Ethereum-Rush/EthereumRushMiner/releases)**, which
@@ -90,7 +75,7 @@ But if this machine get text too you can send T1 or F1 text with ETHEREUM RUSH a
 
 I dont create an any website ,Automat and other payment gateways because i need check this idea is good or bad.
 
-# EthereumRushMiner
+# Ethereum Rush Miner Applications Details
 ```shell
 npm install electron --save-dev
 npm install web3  --save-dev
@@ -118,15 +103,11 @@ electron-packager . miner --overwrite --asar=true --platform=linux --arch=x64 --
 ```
 
 
-
 ## Links
 - First of all you need became a miner at this contract  **[Ethereum RUSH test contract](https://etherscan.io/address/0x61d6d033348f6bf5939548e4bab30f1198a64d0a#writeContract)**
 - Please install metamask on your browser  **[Metamask offical website](https://metamask.io/)**
 - Download Mac OSX Release from here  **[POL miner for mac](https://github.com/Ethereum-Rush/EthereumRushMiner/releases)**
 - Web3 Provider  **[infura link](https://infura.io)**
 
-
-
-<img src="https://github.com/Ethereum-Rush/ethereum-rush/blob/master/ruchicon.png">
-
+ 
 
