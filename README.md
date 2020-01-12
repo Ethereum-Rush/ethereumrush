@@ -12,7 +12,7 @@ Download miner app and start solo mining in 5 minutes.
 - Chat in [ethereumrush-github channel on Gitter](https://gitter.im/ethereumrush-github).
 - Report bugs, issues or feature requests using [GitHub issues](issues/new).
 
- ## Founders
+## Founders
 
 - Solidity Contract programmer : [Yasin Aktimur](https://www.udemy.com/user/yasinaktimur/).
 - Electron Deveoper: [Ling Qing Meng](https://www.linkedin.com/in/lingqingmeng).
