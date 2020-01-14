@@ -1,11 +1,11 @@
 # Ethereum Rush Summary
 
-As we have seen over time, the proof of stake consensus mechanism, in other words, the idea of masternode which is based on winning prizes over some time by renting a coin did as well as the Proof of Work consensus algorithm. But people have to learn too much programming and terminal knowledge to become a coin's masternode, which significantly reduces participation. Our first solution is to help people become masternode without having technical knowledge and to allow them to do a proof of live while keeping their devices on. Our other important solution is to enable the sending of a text (alphanumeric characters) in the ethereum network alongside the memo, in other words. I will explain the importance of this feature below.
+As we have seen over time, the proof of stake consensus mechanism, in other words, the idea of masternode which is based on winning prizes over some time by renting a coins did as well as the Proof of Work consensus algorithm. But people have to learn too much programming and terminal knowledge to become a masternode, which significantly reduces participation. Our first solution is to help people become masternode without having technical knowledge and to allow them to do a proof of live while keeping their devices on. Our other important solution is to enable the sending of a text (alphanumeric characters) in the ethereum network alongside the memo, in other words. I will explain the importance of this feature below.
 
 - Download miner programs for mac and windows [from here](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/1.0.7.1).
 - Our offical contract address is [0x6F371CA338bbddd0baF719E1D5d0797cCE20774f](https://etherscan.io/address/0x6f371ca338bbddd0baf719e1d5d0797cce20774f).
-## Contact
 
+## Contact
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/ethereumrush-github/)
 [![GitHub Issues](https://img.shields.io/badge/open%20issues-0-yellow.svg)](https://github.com/omgbbqhaxx/EthereumRushMiner/issues)
 
