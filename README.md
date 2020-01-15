@@ -18,6 +18,8 @@ As we have seen over time, the proof of stake consensus mechanism, in other word
 - Project Director: [Ömer Şakak](https://www.linkedin.com/in/%C3%B6mer-%C5%9Fakak-68b90b19b/).
 - Coordinator : [Mahmut AL](https://www.linkedin.com/in/mahmut-al-95191219b/).
 - Marketing Manager : [Mustafa Musab Özkeleş](https://www.linkedin.com/in/mustafa-musab-%C3%B6zkele%C5%9F-354b0194/).
+-  IOS Developer : [Melih Can MAVİŞ](https://www.linkedin.com/in/mustafa-musab-%C3%B6zkele%C5%9F-354b0194/).
+-  Back End Developer : [Sergen Maviş](https://www.linkedin.com/in/sergenmavis/).
 
 
 
