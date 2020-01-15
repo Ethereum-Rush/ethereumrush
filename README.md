@@ -14,9 +14,13 @@ As we have seen over time, the proof of stake consensus mechanism, in other word
 
 ## Team
 
-- Solidity Contract programmer : [Yasin Aktimur](https://www.udemy.com/user/yasinaktimur/).
-- Electron Deveoper: [Ling Qing Meng](https://www.linkedin.com/in/lingqingmeng).
-- BlockChain Developer : [Hyungsuk Kang](https://github.com/hskang9).
+- Solidity Contract programmer : [Yasin Aktimur](https://www.linkedin.com/in/yasinaktimur/).
+- Project Director: [Ömer Şakak](https://www.linkedin.com/in/%C3%B6mer-%C5%9Fakak-68b90b19b/).
+- Coordinator : [Mahmut AL](https://www.linkedin.com/in/mahmut-al-95191219b/).
+- Marketing Manager : [Mustafa Musab Özkeleş](https://www.linkedin.com/in/mustafa-musab-%C3%B6zkele%C5%9F-354b0194/).
+
+
+
 
 ## Download and start minig.
 
