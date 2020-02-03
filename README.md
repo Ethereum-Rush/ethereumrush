@@ -1,9 +1,9 @@
-# Ethereum Rush Summary
+# Ethereum eRush Summary
 
 As we have seen over time, the proof of stake consensus mechanism, in other words, the idea of masternode which is based on winning prizes over some time by renting a coins did as well as the Proof of Work consensus algorithm. But people have to learn too much programming and terminal knowledge to become a masternode, which significantly reduces participation. Our first solution is to help people become masternode without having technical knowledge and to allow them to do a proof of live while keeping their devices on. Our other important solution is to enable the sending of a text (alphanumeric characters) in the ethereum network alongside the memo, in other words. I will explain the importance of this feature below.
 
-- Download miner programs for mac and windows [from here](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/1.0.7.1).
-- Our offical contract address is [0x6F371CA338bbddd0baF719E1D5d0797cCE20774f](https://etherscan.io/address/0x6f371ca338bbddd0baf719e1d5d0797cce20774f).
+- Download miner programs for mac and windows [from here](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/2.0).
+- Our offical contract address is [0x6EA53dfc58C5cbf68a799EdD208cb3A905db5939](https://etherscan.io/address/0x6EA53dfc58C5cbf68a799EdD208cb3A905db5939).
 
 ## Contact
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/ethereumrush-github/)
@@ -26,7 +26,7 @@ As we have seen over time, the proof of stake consensus mechanism, in other word
 
 ## Download and start minig.
 
-The Ethereum Mining programs  **[Ethereum RUSH Miner program](https://github.com/Ethereum-Rush/EthereumRushMiner/releases)**, which
+The Ethereum Mining programs  **[Ethereum eRUSH Miner program](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/2.0)**, which
 has a Quick Start section.
 
 Operating system | Status
@@ -59,16 +59,16 @@ https://etherscan.io/block/8801692 You can view these details by examining all t
 The blockhash value in this block is coincidental, and when only 100 blocks are valid for users to receive payment, in other words, in the current 1500 seconds, firstly, we convert this hash in the hexadecimal number system to a decimal system. You can translate these numbers online yourself by typing hexadecimal to decimal. Now, if we simply said ''if the last digit of the decimal equivalent of the hash value is equal to 1, distribute the prize,'' we would get the following result. Since we would get a number between 0 and 9 every 15 seconds, we would distribute a prize averagely in every 9 + 1 block [+1 represents zero], which means every 150 seconds, in other words, every 2,5 minutes. But we want to make payments daily. One day is 86,400 seconds in total. When we divide this number by 12, we reach 7200, which gives us the average number of ethereum blocks produced on an average of 1,5 days. If we want to distribute a prize in 7200 blocks, in other words, once in a day, we need to take the mod 7200 of the blockhash value (x% 7200). By the way, mod 10 means getting the last digit of the number above, so we divide the number by 10 constantly and the latest remainder means mod 10. For example, mod 10 of the number 101 is 1. So when we get the mod 7200 of a number, we get numbers between 0 and 7200 - 1 from this random number. Thus we distribute the prize every 1,5 days, but no one in the universe knows in which block the prize will be given and it needs to be checked every 12 seconds. Therefore, this explains how the Proof of Live algorithm works.
 
 
-## Ethereum Rush Prize distribution algorithm
-In Ethererum Rush, the tokens are in the contract itself, which now amounts to 24 million, and from this contract, 16,384 prizes are distributed to miners every 1,5 days in average, but miners receive prizes at a coin rate that they locked to the system to get it back after 3 months. In the scenario where there are only 2 miners in the system, a miner who locks 1000 Etrs will receive half of the prize that miners who lock 2000 Etrs get.
+## Ethereum eRush Prize distribution algorithm
+In Ethererum eRush, the tokens are in the contract itself, which now amounts to 24 million, and from this contract, 16,384 prizes are distributed to miners every 1,5 days in average, but miners receive prizes at a coin rate that they locked to the system to get it back after 3 months. In the scenario where there are only 2 miners in the system, a miner who locks 1000 Etrs will receive half of the prize that miners who lock 2000 Etrs get.
 In the PoL consensus algorithm, the amount that should remain locked for the masternode is determined by users and it is called minimum target. If a user has locked 5,000 coins for 3 months to become a masternode, the minimum target is set to 50 and therefore the user can lock at least 1% coin to allow other users to become masternode. In the 5000 case, the minimum required number is 50. But if there are only 2 people in the system, the minimum target is calculated as 1% of 5000 +50/2. So in this case, the minimum target decreases to 2,5.  The concept that more locks get more pay creates a demand for the purchase of PoL-based cryptocurrencies, in which case people will have to collect more cryptocurrencies from the market to earn more, which reduces the supply in the market and allows the money to preserve its value.
 
-## Ethereum Rush Supply
+## Ethereum eRush Supply
 Total supply is limited to 24,592,240 and only 80 thousand have been dug beforehand.  Miners in the system continue to generate coins and make gain by locking these coins.
-The fact that Ethereum Rush gives a prize every 1,5 days on average does not necessarily mean that it will give a prize every 1,5 days. While it may not give a prize for 8 days,  it may give 8 consecutive prizes at the end of the 8th day. But every time Etr gives a prize, a value called lastblock increases once, and when the lastblock value is equal to 7300, which is equivalent to an average of 3 years, the daily prize of 16,000 will be reduced to 8000.
+The fact that Ethereum eRush gives a prize every 1,5 days on average does not necessarily mean that it will give a prize every 1,5 days. While it may not give a prize for 8 days,  it may give 8 consecutive prizes at the end of the 8th day. But every time Etr gives a prize, a value called lastblock increases once, and when the lastblock value is equal to 7300, which is equivalent to an average of 3 years, the daily prize of 16,000 will be reduced to 8000.
 
 
-# Ethereum Rush Miner Applications Details
+# Ethereum eRush Miner Applications Details
 ```shell
 npm install electron --save-dev
 npm install web3  --save-dev
@@ -97,7 +97,7 @@ electron-packager . miner --overwrite --asar=true --platform=linux --arch=x64 --
 
 
 ## Links
-- First of all you need became a miner at this contract  **[Ethereum RUSH test contract](https://etherscan.io/address/0x61d6d033348f6bf5939548e4bab30f1198a64d0a#writeContract)**
+- First of all you need became a miner at this contract  **[Ethereum eRUSH test contract](https://etherscan.io/address/0x6EA53dfc58C5cbf68a799EdD208cb3A905db5939#writeContract)**
 - Please install metamask on your browser  **[Metamask offical website](https://metamask.io/)**
 - Download Mac OSX Release from here  **[POL miner for mac](https://github.com/Ethereum-Rush/EthereumRushMiner/releases)**
 - Web3 Provider  **[infura link](https://infura.io)**
