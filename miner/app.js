@@ -12,9 +12,13 @@ var myetheraddress;
 const globalGwei = "10";
 const othersGwei = "5";
 
+const newminercont = "0xaA4eeff7b95152FFA30378404C0d1464A338f5DF"
+const newminerabi = JSON.parse('[{"inputs":[],"name":"checklasttwentyblock","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]')
+
+
+
+
 const contractAddress = "0x6EA53dfc58C5cbf68a799EdD208cb3A905db5939"
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 const url = require("url");
 const path = require("path");
@@ -108,7 +112,7 @@ ipcMain.on('beminer', (event, mamount) => {
     //console.log(arg) // prints "ping"
     //var buf = Buffer.from(arg, 'utf8');
 
-   web3 = new Web3(privateKey["privder"]);
+    web3 = new Web3(privateKey["privder"]);
     var privateKey = Buffer.from(privateKey["pkey"], 'hex' );
     pkkey = privateKey;
     myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
@@ -119,10 +123,9 @@ ipcMain.on('beminer', (event, mamount) => {
     console.log(myetheraddress);
 
 
-    //connectContrat = web3.eth.Contract(address="0x1A416997DeED6F1d6DFd09a6fcFE7c1f0Ee5A13b", abi=cAbi,)
     var MyContract = new web3.eth.Contract(abi, contractAddress, {
         from: myetheraddress, // default from address
-        gasPrice: '20000000000' // default gas price in wei, 20 gwei in this case
+        gasPrice: web3.utils.toWei(othersGwei, 'gwei') // default gas price in wei, 20 gwei in this case
     });
 
 
@@ -136,7 +139,7 @@ ipcMain.on('beminer', (event, mamount) => {
           defaultId: 2,
           title: 'Warning',
           message: 'Ethereum balance problem',
-          detail: 'Hola, you need minimum 0.1 ethereum balance. Because of ethereum rush write functions.',
+          detail: 'Hola, you need minimum 0.1 ethereum balance. Because of ethereum eRush write functions.',
         };
 
         dialog.showMessageBox(null, options, (response, checkboxChecked) => {
@@ -167,7 +170,14 @@ ipcMain.on('beminer', (event, mamount) => {
             //eawc
             (function(){
                 // do some stuff
-                MyContract.methods.checkRewardStatus().call().then(function(result){
+
+
+                var MinerContract = new web3.eth.Contract(newminerabi, newminercont, {
+                    from: myetheraddress, // default from address
+                    gasPrice: web3.utils.toWei(othersGwei, 'gwei') // default gas price in wei, 20 gwei in this case
+                });
+
+                MinerContract.methods.checklasttwentyblock().call().then(function(result){
 
                   if(oldresult == result[0]) {
                       console.log("do not make an anything");
