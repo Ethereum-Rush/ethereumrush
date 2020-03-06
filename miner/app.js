@@ -249,7 +249,7 @@ ipcMain.on('beminer', (event, mamount) => {
                   }
                 });
 
-             setTimeout(arguments.callee, 5000);
+             setTimeout(arguments.callee, 15000);
             })();
 
 
