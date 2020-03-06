@@ -9,7 +9,7 @@ var Web3 = require('web3');
 const ethUtils = require('ethereumjs-util')
 var oldresult = 999999999;
 var myetheraddress;
-const globalGwei = "10";
+const globalGwei = "7";
 const othersGwei = "5";
 
 const newminercont = "0xaA4eeff7b95152FFA30378404C0d1464A338f5DF"
@@ -157,6 +157,8 @@ ipcMain.on('beminer', (event, mamount) => {
           if(result) {
             mainWindow.webContents.send("ethaddress", myetheraddress);
             mainWindow.webContents.send("ethbalance", bal);
+
+
             var jokerQQ = MyContract.methods.balanceOf(myetheraddress).call().then(function(result){
             //the result holds your Token Balance that you can assign to a var
               var myTokenBalance = result;
@@ -164,7 +166,16 @@ ipcMain.on('beminer', (event, mamount) => {
               console.log(bal);
               mainWindow.send("etrbalance", bal);
            });
+
+           var getamnumber = MyContract.methods.getactiveminersnumber().call().then(function(amn){
+           //the result holds your Token Balance that you can assign to a var
+             console.log(amn);
+             mainWindow.send("amn", amn);
+          });
+
+
             console.log(bal);
+            console.log(getamnumber);
 
 
             //eawc
@@ -229,7 +240,7 @@ ipcMain.on('beminer', (event, mamount) => {
                       mainWindow.send("rewardSuccessful", result[1]);
                       mainWindow.send("checkRewardStatus", result[0]);
                       console.log("you can get your reward after 1 hrs!!!");
-                      setTimeout(getrewardnow, 1800000);
+                      setTimeout(getrewardnow, 2100000);
                     }
                     } else {
                         mainWindow.send("checkRewardStatus", result[0]);

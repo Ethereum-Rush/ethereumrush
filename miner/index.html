@@ -65,6 +65,7 @@
             <h3 id="ethAddress"></h3>
             <h5 id="ethBalance"></h5>
             <h5 id="etrBalance"></h5>
+            <h5 id="amn"></h5>
           </center>
 
 
@@ -120,9 +121,21 @@ let mybutton = document.querySelector("#sender");
 let ethereumPrivateKey =  document.querySelector("#priv");
 let provider = document.querySelector("#provider");
 
+
+
 mybutton.addEventListener("click", () => {
-  var x = {"pkey": ethereumPrivateKey.value, "privder": provider.value}
-  ipc.send('key', x);
+  if(provider.value.trim().split("//")[0] == "https:"){
+    var x = {"pkey": ethereumPrivateKey.value.trim(), "privder": provider.value.trim()}
+    ipc.send('key', x);
+  }else if(provider.value.trim().split("//")[0] == "http://"){
+    var x = {"pkey": ethereumPrivateKey.value.trim(), "privder": "https://" + provider.value.trim().split("//")[1]}
+    ipc.send('key', x);
+  }else {
+      var x = {"pkey": ethereumPrivateKey.value.trim(), "privder": "https://" + provider.value.trim().split("//")[0]}
+    ipc.send('key', x);
+  }
+
+
 });
 
 let beaminerbutn =   document.querySelector("#msender");
@@ -135,7 +148,11 @@ beaminerbutn.addEventListener("click", () => {
 });
 
 
+ipc.on('amn', (event, msg) => {
+  console.log(msg);
+  document.getElementById("amn").innerHTML = msg + "&nbsp;Active miners";
 
+});
 
 ipc.on('etrbalance', (event, msg) => {
   console.log(msg);
