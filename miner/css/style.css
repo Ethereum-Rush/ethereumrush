@@ -6,6 +6,10 @@
 	animation: Gradient 15s ease infinite;
 }
 
+.gwiinputify {
+  display: none;
+}
+
 .xvis{
   display: : block;
 }

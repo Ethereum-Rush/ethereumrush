@@ -9,8 +9,7 @@ var Web3 = require('web3');
 const ethUtils = require('ethereumjs-util')
 var oldresult = 999999999;
 var myetheraddress;
-const globalGwei = "7";
-const othersGwei = "5";
+var globalGwei = "40";
 
 const newminercont = "0xaA4eeff7b95152FFA30378404C0d1464A338f5DF"
 const newminerabi = JSON.parse('[{"inputs":[],"name":"checklasttwentyblock","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]')
@@ -41,9 +40,9 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 600,
-    height: 400,
-    'min-width': 500,
+    width: 800,
+    height: 600,
+    'min-width': 400,
     'min-height': 200,
     'accept-first-mouse': true,
     'title-bar-style': 'hidden',
@@ -66,6 +65,13 @@ app.on('ready', function() {
     mainWindow = null;
   });
 
+
+ipcMain.on('chwweii', (event, xx) => {
+  console.log("asdad", xx);
+  globalGwei = String(xx);
+  console.log("typeeee", typeof globalGwei);
+  mainWindow.send("okeygwei", xx);
+});
 
 ipcMain.on('beminer', (event, mamount) => {
 
@@ -125,7 +131,7 @@ ipcMain.on('beminer', (event, mamount) => {
 
     var MyContract = new web3.eth.Contract(abi, contractAddress, {
         from: myetheraddress, // default from address
-        gasPrice: web3.utils.toWei(othersGwei, 'gwei') // default gas price in wei, 20 gwei in this case
+        gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
     });
 
 
@@ -185,7 +191,7 @@ ipcMain.on('beminer', (event, mamount) => {
 
                 var MinerContract = new web3.eth.Contract(newminerabi, newminercont, {
                     from: myetheraddress, // default from address
-                    gasPrice: web3.utils.toWei(othersGwei, 'gwei') // default gas price in wei, 20 gwei in this case
+                    gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
                 });
 
                 MinerContract.methods.checklasttwentyblock().call().then(function(result){
@@ -285,7 +291,7 @@ ipcMain.on('beminer', (event, mamount) => {
                    'gas': web3.utils.toHex(gasAmount),
                    'data':dataTx,
                    'to': contractAddress,
-                   'gasPrice': web3.utils.toHex(web3.utils.toWei(othersGwei, 'gwei')),
+                   'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
                    'nonce':  web3.utils.toHex(nonce) }
 
                    var tx = new Tx(rawTx);

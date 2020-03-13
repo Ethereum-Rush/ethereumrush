@@ -23,7 +23,7 @@
 
 
 
-          <div class="pane pane-sm sidebar">
+          <div class="pane pane-one-fourth sidebar">
             <nav class="nav-group">
 
 
@@ -66,6 +66,15 @@
             <h5 id="ethBalance"></h5>
             <h5 id="etrBalance"></h5>
             <h5 id="amn"></h5>
+            <br>
+            <div class="form-group gwiinputify" >
+              <input id="ggweiinp"   type="text" class="form-control" placeholder="Gwei">
+            </div>
+
+            <div class="form-actions gwiinputify">
+              <button type="button" id="changegwei" class="btn btn-form btn-primary">Change Gwei</button>
+            </div>
+
           </center>
 
 
@@ -107,7 +116,7 @@
       </div>
 
       <footer class="toolbar toolbar-footer">
-      <h1 class="title">Ethereum eRush v1.1 Smyrna</h1>
+      <h1 class="title">Ethereum eRush v1.2 GWEI</h1>
     </footer>
 
 
@@ -120,6 +129,7 @@ const ipc = require('electron').ipcRenderer;
 let mybutton = document.querySelector("#sender");
 let ethereumPrivateKey =  document.querySelector("#priv");
 let provider = document.querySelector("#provider");
+let glovalGwei = document.querySelector("#ggwei");
 
 
 
@@ -147,9 +157,22 @@ beaminerbutn.addEventListener("click", () => {
   ipc.send('beminer', stakeamountify.value);
 });
 
+let getgweifrominp =   document.querySelector("#ggweiinp");
+let changegweibutton =  document.querySelector("#changegwei");
+changegweibutton.addEventListener("click", () => {
+  ipc.send('chwweii', getgweifrominp.value);
+});
+
+ipc.on('okeygwei', (event, msg) => {
+  console.log("okeygwei",msg);
+  alert('System gwei has changed successfully as ' + msg);
+
+});
+
 
 ipc.on('amn', (event, msg) => {
-  console.log(msg);
+
+  $('.gwiinputify').css('display','block');
   document.getElementById("amn").innerHTML = msg + "&nbsp;Active miners";
 
 });
