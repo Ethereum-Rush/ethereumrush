@@ -9,7 +9,7 @@ var Web3 = require('web3');
 const ethUtils = require('ethereumjs-util')
 var oldresult = 999999999;
 var myetheraddress;
-var globalGwei = "40";
+var globalGwei = "10";
 
 const newminercont = "0xaA4eeff7b95152FFA30378404C0d1464A338f5DF"
 const newminerabi = JSON.parse('[{"inputs":[],"name":"checklasttwentyblock","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]')
