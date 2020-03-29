@@ -219,7 +219,7 @@ ipc.on('checkRewardStatus', (event, msg) => {
         '<p>'+ msg +'</p>'+
       '</div></li>';
   }
-  $("#actionslg").prepend(x);
+  $("#actionslg").html(x);
   //document.getElementById("ethBalance").innerHTML = msg;
 });
 
@@ -233,7 +233,7 @@ ipc.on('rewardSuccessful', (event, msg) => {
         '<strong>New Sign</strong>'+
         '<p>Block: '+msg+'</p>'+
       '</div></li>';
-  $("#receivelg").prepend(x);
+  $("#receivelg").html(x);
   //document.getElementById("ethBalance").innerHTML = msg;
 });
 
