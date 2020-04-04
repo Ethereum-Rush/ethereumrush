@@ -5,8 +5,8 @@ const Tx = require('ethereumjs-tx').Transaction
 var pkkey = '';
 var web3 = '';
 var Web3 = require('web3');
-
-const ethUtils = require('ethereumjs-util')
+var hdkey = require('ethereumjs-wallet/hdkey');
+const ethUtils = require('ethereumjs-util');
 var oldresult = 999999999;
 var myetheraddress;
 var globalGwei = "10";
@@ -119,200 +119,228 @@ ipcMain.on('beminer', (event, mamount) => {
     //var buf = Buffer.from(arg, 'utf8');
 
     web3 = new Web3(privateKey["privder"]);
-    var privateKey = Buffer.from(privateKey["pkey"], 'hex' );
-    pkkey = privateKey;
-    myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
+    checkxx = privateKey["pkey"].split(" ").length-1
+    console.log(checkxx);
+    var mnemonic = privateKey["pkey"];
+    if(checkxx > 10){
+      const HDWallet = require('ethereum-hdwallet')
+      const hdwallet = HDWallet.fromMnemonic(mnemonic);
+      console.log(`0x${hdwallet.derive(`m/44'/60'/0'/0/0`).getAddress().toString('hex')}`)
+      var adasd = hdwallet.derive(`m/44'/60'/0'/0/0`).getPrivateKey().toString('hex')
+      var privateKey = Buffer.from(adasd, 'hex' );
+
+
+      myetheraddress = `0x${hdwallet.derive(`m/44'/60'/0'/0/0`).getAddress().toString('hex')}`; //ethUtils.privateToAddress(privateKey).toString('hex')
+      console.log(privateKey);
+      console.log(myetheraddress);
+      pkkey = privateKey;
+      continuexx();
+    } else {
+      var privateKey = Buffer.from(privateKey["pkey"], 'hex' );
+      myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
+      console.log(privateKey);
+      console.log(myetheraddress);
+      pkkey = privateKey;
+      continuexx();
+    }
+
+  });
+
+
+  function continuexx(){
 
 
 
 
-    console.log(myetheraddress);
 
 
-    var MyContract = new web3.eth.Contract(abi, contractAddress, {
-        from: myetheraddress, // default from address
-        gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
-    });
 
 
-    web3.eth.getBalance(myetheraddress).then(function(balance){
-      var bal = web3.utils.fromWei(balance);
-      if(bal < 0.1) {
-
-                const options = {
-          type: 'question',
-          buttons: ['I understand problem, i will load ethereum to this address.'],
-          defaultId: 2,
-          title: 'Warning',
-          message: 'Ethereum balance problem',
-          detail: 'Hola, you need minimum 0.1 ethereum balance. Because of ethereum eRush write functions.',
-        };
-
-        dialog.showMessageBox(null, options, (response, checkboxChecked) => {
-          console.log(response);
-          console.log(checkboxChecked);
+        var MyContract = new web3.eth.Contract(abi, contractAddress, {
+            from: myetheraddress, // default from address
+            gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
         });
 
 
-      } else {
+        web3.eth.getBalance(myetheraddress).then(function(balance){
+          var bal = web3.utils.fromWei(balance);
+          if(bal < 0.01) {
 
+                    const options = {
+              type: 'question',
+              buttons: ['I understand problem, i will load ethereum to this address.'],
+              defaultId: 2,
+              title: 'Warning',
+              message: 'Ethereum balance problem',
+              detail: 'Hola, you need minimum 0.1 ethereum balance. Because of ethereum eRush write functions.',
+            };
 
-       MyContract.methods.checkAddrMinerStatus(myetheraddress).call().then(function(result){
-
-
-          if(result) {
-            mainWindow.webContents.send("ethaddress", myetheraddress);
-            mainWindow.webContents.send("ethbalance", bal);
-
-
-            var jokerQQ = MyContract.methods.balanceOf(myetheraddress).call().then(function(result){
-            //the result holds your Token Balance that you can assign to a var
-              var myTokenBalance = result;
-              var bal = web3.utils.fromWei(myTokenBalance);
-              console.log(bal);
-              mainWindow.send("etrbalance", bal);
-           });
-
-           var getamnumber = MyContract.methods.getactiveminersnumber().call().then(function(amn){
-           //the result holds your Token Balance that you can assign to a var
-             console.log(amn);
-             mainWindow.send("amn", amn);
-          });
-
-
-            console.log(bal);
-            console.log(getamnumber);
-
-
-            //eawc
-            (function(){
-                // do some stuff
-
-
-                var MinerContract = new web3.eth.Contract(newminerabi, newminercont, {
-                    from: myetheraddress, // default from address
-                    gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
-                });
-
-                MinerContract.methods.checklasttwentyblock().call().then(function(result){
-
-                  if(oldresult == result[0]) {
-                      console.log("do not make an anything");
-                  } else {
-                    oldresult = result[0];
-                    if(result[0] == 1 ) {
-                      if((result[1] - greatBlock) <= 100) {
-                          mainWindow.send("checkRewardStatus", "pass");
-                      } else {
-                      greatBlock = result[1];
-                      console.log(greatBlock);
-
-                      //const bnumber = result[1].toString();
-                      MyContract.methods.signfordailyreward(result[1]).estimateGas({from: myetheraddress})
-                        .then(function(gasAmount){
-
-                                console.log("gasolina", gasAmount);
-                                web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
-                                  console.log("my nonce value is here:", nonce);
-
-                                  dataTx = MyContract.methods.signfordailyreward(result[1]).encodeABI();  //The encoded ABI of the method
-                                   console.log(dataTx);
-
-                                   var rawTx = {
-                                   'chainId': 1,
-                                   'gas': web3.utils.toHex(gasAmount),
-                                   'data':dataTx,
-                                   'to': contractAddress,
-                                   'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
-                                   'nonce':  web3.utils.toHex(nonce) }
-
-                                   var tx = new Tx(rawTx);
-                                   console.log(tx);
-                                   tx.sign(pkkey);
-                                   var serializedTx = tx.serialize();
-                                   console.log(serializedTx);
-                                   web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', console.log);
-                                   //.then(function(TxHash){
-                                  //    console.log(TxHash);
-                                  // }
-
-
-
-                                });
-                        })
-                        .catch(function(err){
-                              console.log("gasolina err", err);
-                        });
-                      mainWindow.send("rewardSuccessful", result[1]);
-                      mainWindow.send("checkRewardStatus", result[0]);
-                      console.log("you can get your reward after 1 hrs!!!");
-                      setTimeout(getrewardnow, 2100000);
-                    }
-                    } else {
-                        mainWindow.send("checkRewardStatus", result[0]);
-
-                    }
-                  }
-                });
-
-             setTimeout(arguments.callee, 15000);
-            })();
-
+            dialog.showMessageBox(null, options, (response, checkboxChecked) => {
+              console.log(response);
+              console.log(checkboxChecked);
+            });
 
 
           } else {
 
-            MyContract.methods.getmaximumAverage().call().then(function(result){
-                var mininmumAvarage = ((result / 10**18) / 100) + 1
-                console.log(mininmumAvarage);
-                mainWindow.send("minerequired", mininmumAvarage);
 
-            });
-
-          }
-       });
-      }
-    });
+           MyContract.methods.checkAddrMinerStatus(myetheraddress).call().then(function(result){
 
 
-
-    function getrewardnow(){
-      console.log("here need works after 1 hours");
-      MyContract.methods.getDailyReward(greatBlock).estimateGas({from: myetheraddress})
-        .then(function(gasAmount){
-
-                console.log("gasolina for getDailyReward", gasAmount);
-                web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
-                  console.log("my nonce value is here:", nonce);
-
-                  dataTx = MyContract.methods.getDailyReward(greatBlock).encodeABI();  //The encoded ABI of the method
-                   var rawTx = {
-                   'chainId': 1,
-                   'gas': web3.utils.toHex(gasAmount),
-                   'data':dataTx,
-                   'to': contractAddress,
-                   'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
-                   'nonce':  web3.utils.toHex(nonce) }
-
-                   var tx = new Tx(rawTx);
-                   console.log(tx);
-                   tx.sign(pkkey);
-                   var serializedTx = tx.serialize();
-                   console.log(serializedTx);
-                   web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', console.log);
-                   //.then(function(TxHash){
-                  //    console.log(TxHash);
-                  // }
+              if(result) {
+                mainWindow.webContents.send("ethaddress", myetheraddress);
+                mainWindow.webContents.send("ethbalance", bal);
 
 
+                var jokerQQ = MyContract.methods.balanceOf(myetheraddress).call().then(function(result){
+                //the result holds your Token Balance that you can assign to a var
+                  var myTokenBalance = result;
+                  var bal = web3.utils.fromWei(myTokenBalance);
+                  console.log(bal);
+                  mainWindow.send("etrbalance", bal);
+               });
+
+               var getamnumber = MyContract.methods.getactiveminersnumber().call().then(function(amn){
+               //the result holds your Token Balance that you can assign to a var
+                 console.log(amn);
+                 mainWindow.send("amn", amn);
+              });
+
+
+                console.log(bal);
+                console.log(getamnumber);
+
+
+                //eawc
+                (function(){
+                    // do some stuff
+
+
+                    var MinerContract = new web3.eth.Contract(newminerabi, newminercont, {
+                        from: myetheraddress, // default from address
+                        gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
+                    });
+
+                    MinerContract.methods.checklasttwentyblock().call().then(function(result){
+
+                      if(oldresult == result[0]) {
+                          console.log("do not make an anything");
+                      } else {
+                        oldresult = result[0];
+                        if(result[0] == 1 ) {
+                          if((result[1] - greatBlock) <= 100) {
+                              mainWindow.send("checkRewardStatus", "pass");
+                          } else {
+                          greatBlock = result[1];
+                          console.log(greatBlock);
+
+                          //const bnumber = result[1].toString();
+                          MyContract.methods.signfordailyreward(result[1]).estimateGas({from: myetheraddress})
+                            .then(function(gasAmount){
+
+                                    console.log("gasolina", gasAmount);
+                                    web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
+                                      console.log("my nonce value is here:", nonce);
+
+                                      dataTx = MyContract.methods.signfordailyreward(result[1]).encodeABI();  //The encoded ABI of the method
+                                       console.log(dataTx);
+
+                                       var rawTx = {
+                                       'chainId': 1,
+                                       'gas': web3.utils.toHex(gasAmount),
+                                       'data':dataTx,
+                                       'to': contractAddress,
+                                       'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
+                                       'nonce':  web3.utils.toHex(nonce) }
+
+                                       var tx = new Tx(rawTx);
+                                       console.log(tx);
+                                       tx.sign(pkkey);
+                                       var serializedTx = tx.serialize();
+                                       console.log(serializedTx);
+                                       web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', console.log);
+                                       //.then(function(TxHash){
+                                      //    console.log(TxHash);
+                                      // }
+
+
+
+                                    });
+                            })
+                            .catch(function(err){
+                                  console.log("gasolina err", err);
+                            });
+                          mainWindow.send("rewardSuccessful", result[1]);
+                          mainWindow.send("checkRewardStatus", result[0]);
+                          console.log("you can get your reward after 1 hrs!!!");
+                          setTimeout(getrewardnow, 2100000);
+                        }
+                        } else {
+                            mainWindow.send("checkRewardStatus", result[0]);
+
+                        }
+                      }
+                    });
+
+                 setTimeout(arguments.callee, 15000);
+                })();
+
+
+
+              } else {
+
+                MyContract.methods.getmaximumAverage().call().then(function(result){
+                    var mininmumAvarage = ((result / 10**18) / 100) + 1
+                    console.log(mininmumAvarage);
+                    mainWindow.send("minerequired", mininmumAvarage);
 
                 });
-        })
-        .catch(function(err){
-              console.log("gasolina err for getrewardnow", err);
+
+              }
+           });
+          }
         });
-    }
-  });
+
+
+
+        function getrewardnow(){
+          console.log("here need works after 1 hours");
+          MyContract.methods.getDailyReward(greatBlock).estimateGas({from: myetheraddress})
+            .then(function(gasAmount){
+
+                    console.log("gasolina for getDailyReward", gasAmount);
+                    web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
+                      console.log("my nonce value is here:", nonce);
+
+                      dataTx = MyContract.methods.getDailyReward(greatBlock).encodeABI();  //The encoded ABI of the method
+                       var rawTx = {
+                       'chainId': 1,
+                       'gas': web3.utils.toHex(gasAmount),
+                       'data':dataTx,
+                       'to': contractAddress,
+                       'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
+                       'nonce':  web3.utils.toHex(nonce) }
+
+                       var tx = new Tx(rawTx);
+                       console.log(tx);
+                       tx.sign(pkkey);
+                       var serializedTx = tx.serialize();
+                       console.log(serializedTx);
+                       web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', console.log);
+                       //.then(function(TxHash){
+                      //    console.log(TxHash);
+                      // }
+
+
+
+                    });
+            })
+            .catch(function(err){
+                  console.log("gasolina err for getrewardnow", err);
+            });
+        }
+
+  };
 
 
 
