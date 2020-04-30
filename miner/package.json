@@ -11,7 +11,7 @@
   "devDependencies": {
     "electron": "^7.1.2",
     "electron-packager": "^14.1.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "web3": "^1.2.4",
     "ethereumjs-tx": "^2.1.1"
   },
@@ -23,7 +23,7 @@
     "ethereum-hdwallet": "0.0.26",
     "ethereumjs-tx": "^2.1.1",
     "ethereumjs-wallet": "^0.6.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "web3": "^1.2.4"
   }
 }
