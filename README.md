@@ -3,7 +3,7 @@
 As we have seen over time, the proof of stake consensus mechanism, in other words, the idea of masternode which is based on winning prizes over some time by renting a coins did as well as the Proof of Work consensus algorithm. But people have to learn too much programming and terminal knowledge to become a masternode, which significantly reduces participation. Our first solution is to help people become masternode without having technical knowledge and to allow them to do a proof of live while keeping their devices on. Our other important solution is to enable the sending of a text (alphanumeric characters) in the ethereum network alongside the memo, in other words. I will explain the importance of this feature below.
 
 - Download miner programs for mac and windows [from here](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/2.3).
-- Our offical contract address is [0x6EA53dfc58C5cbf68a799EdD208cb3A905db5939](https://etherscan.io/address/0x6EA53dfc58C5cbf68a799EdD208cb3A905db5939).
+- Our offical contract address is [0x3eec8dc0e30fb282384eccb6bede76f1a901afc9](https://etherscan.io/address/0x3eec8dc0e30fb282384eccb6bede76f1a901afc9).
 
 ## Contact
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/ethereumrush-github/)
@@ -86,7 +86,7 @@ electron-packager . miner --overwrite --asar=true --platform=linux --arch=x64 --
 
 
 ## Links
-- First of all you need became a miner at this contract  **[Ethereum eRUSH test contract](https://etherscan.io/address/0x6EA53dfc58C5cbf68a799EdD208cb3A905db5939#writeContract)**
+- First of all you need became a miner at this contract  **[Ethereum eRUSH test contract](https://etherscan.io/address/0x3eec8dc0e30fb282384eccb6bede76f1a901afc9#writeContract)**
 - Please install metamask on your browser  **[Metamask offical website](https://metamask.io/)**
 - Download Mac OSX Release from here  **[POL miner for mac](https://github.com/Ethereum-Rush/EthereumRushMiner/releases)**
 - Web3 Provider  **[infura link](https://infura.io)**
