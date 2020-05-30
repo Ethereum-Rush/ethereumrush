@@ -9,11 +9,10 @@ var hdkey = require('ethereumjs-wallet/hdkey');
 const ethUtils = require('ethereumjs-util');
 var oldresult = 999999999;
 var myetheraddress;
-var globalGwei = "20";
+var globalGwei = "35";
 
 const newminercont = "0xaA4eeff7b95152FFA30378404C0d1464A338f5DF"
 const newminerabi = JSON.parse('[{"inputs":[],"name":"checklasttwentyblock","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]')
-
 
 
 
@@ -77,10 +76,10 @@ ipcMain.on('beminer', (event, mamount) => {
 
       var MyContract = new web3.eth.Contract(abi, contractAddress, {
           from: myetheraddress, // default from address
-          gasPrice: '40000000000' // default gas price in wei, 20 gwei in this case
+          gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
       });
 
-
+    const grpice  = web3.eth.getGasPrice().then(function(networkgasprice){
     MyContract.methods.becameaminer(parseInt(mamount)).estimateGas({from: myetheraddress})
       .then(function(gasAmount){
 
@@ -94,7 +93,7 @@ ipcMain.on('beminer', (event, mamount) => {
                  'gas': web3.utils.toHex(gasAmount),
                  'data':dataTx,
                  'to': contractAddress,
-                 'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
+                 'gasPrice': web3.utils.toHex(networkgasprice),
                  'nonce':  web3.utils.toHex(nonce) }
 
                  var tx = new Tx(rawTx);
@@ -104,11 +103,8 @@ ipcMain.on('beminer', (event, mamount) => {
                  console.log(serializedTx);
                  web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', console.log);
               });
-      })
-      .catch(function(err){
-            console.log("gasolina err for getrewardnow", err);
-      });
-
+      }).catch(function(err){console.log("gasolina err for getrewardnow", err);});
+    });
 
 
 });
@@ -221,6 +217,12 @@ ipcMain.on('beminer', (event, mamount) => {
                         gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
                     });
 
+
+
+
+                    const grpice  = web3.eth.getGasPrice().then(function(networkgasprice){
+
+
                     MinerContract.methods.checklasttwentyblock().call().then(function(result){
 
                       if(oldresult == result[0]) {
@@ -231,13 +233,18 @@ ipcMain.on('beminer', (event, mamount) => {
                           if((result[1] - greatBlock) <= 100) {
                               mainWindow.send("checkRewardStatus", "pass");
                           } else {
+
+                          if(web3.utils.toHex(networkgasprice) > web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')))
+                          {
+                            console.log("gwei is very highh!!");
+                            mainWindow.send("checkRewardStatus", "HighGwei");
+                          } else {
+                          //+!+!+!+!+!+!+!+!+!
                           greatBlock = result[1];
                           console.log(greatBlock);
-
                           //const bnumber = result[1].toString();
                           MyContract.methods.signfordailyreward(result[1]).estimateGas({from: myetheraddress})
                             .then(function(gasAmount){
-
                                     console.log("gasolina", gasAmount);
                                     web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
                                       console.log("my nonce value is here:", nonce);
@@ -250,9 +257,8 @@ ipcMain.on('beminer', (event, mamount) => {
                                        'gas': web3.utils.toHex(gasAmount),
                                        'data':dataTx,
                                        'to': contractAddress,
-                                       'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
+                                       'gasPrice': web3.utils.toHex(networkgasprice),
                                        'nonce':  web3.utils.toHex(nonce) }
-
                                        var tx = new Tx(rawTx);
                                        console.log(tx);
                                        tx.sign(pkkey);
@@ -262,18 +268,18 @@ ipcMain.on('beminer', (event, mamount) => {
                                        //.then(function(TxHash){
                                       //    console.log(TxHash);
                                       // }
-
-
-
                                     });
-                            })
-                            .catch(function(err){
-                                  console.log("gasolina err", err);
-                            });
+                            }).catch(function(err){console.log("gasolina err", err);});
                           mainWindow.send("rewardSuccessful", result[1]);
                           mainWindow.send("checkRewardStatus", result[0]);
                           console.log("you can get your reward after 1 hrs!!!");
                           setTimeout(getrewardnow, 2100000);
+                          //+!+!+!+!+!+!+!+!+!
+                        }
+
+
+
+
                         }
                         } else {
                             mainWindow.send("checkRewardStatus", result[0]);
@@ -281,6 +287,12 @@ ipcMain.on('beminer', (event, mamount) => {
                         }
                       }
                     });
+                  });
+
+
+
+
+
 
                  setTimeout(arguments.callee, 15000);
                 })();
@@ -305,9 +317,12 @@ ipcMain.on('beminer', (event, mamount) => {
 
         function getrewardnow(){
           console.log("here need works after 1 hours");
+
+
+
+          const grpice  = web3.eth.getGasPrice().then(function(networkgasprice){
           MyContract.methods.getDailyReward(greatBlock).estimateGas({from: myetheraddress})
             .then(function(gasAmount){
-
                     console.log("gasolina for getDailyReward", gasAmount);
                     web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
                       console.log("my nonce value is here:", nonce);
@@ -318,7 +333,7 @@ ipcMain.on('beminer', (event, mamount) => {
                        'gas': web3.utils.toHex(gasAmount),
                        'data':dataTx,
                        'to': contractAddress,
-                       'gasPrice': web3.utils.toHex(web3.utils.toWei(globalGwei, 'gwei')),
+                       'gasPrice': web3.utils.toHex(networkgasprice),
                        'nonce':  web3.utils.toHex(nonce) }
 
                        var tx = new Tx(rawTx);
@@ -330,15 +345,19 @@ ipcMain.on('beminer', (event, mamount) => {
                        //.then(function(TxHash){
                       //    console.log(TxHash);
                       // }
-
-
-
                     });
-            })
-            .catch(function(err){
-                  console.log("gasolina err for getrewardnow", err);
-            });
+            }).catch(function(err){console.log("gasolina err for getrewardnow", err);});
+          });
+
+
+
+
         }
+
+
+
+
+
 
   };
 

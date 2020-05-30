@@ -68,11 +68,11 @@
             <h5 id="amn"></h5>
             <br>
             <div class="form-group gwiinputify" >
-              <input id="ggweiinp"   type="text" class="form-control" placeholder="Gwei">
+              <input id="ggweiinp"   type="text" class="form-control" placeholder="Maximum gwei is 35 ">
             </div>
 
             <div class="form-actions gwiinputify">
-              <button type="button" id="changegwei" class="btn btn-form btn-primary">Change Gwei</button>
+              <button type="button" id="changegwei" class="btn btn-form btn-primary">Change MaxGwei</button>
             </div>
 
           </center>
@@ -116,7 +116,7 @@
       </div>
 
       <footer class="toolbar toolbar-footer">
-      <h1 class="title">Ethereum eRush v3.0 PHASE THREE</h1>
+      <h1 class="title">erush v4.0 Rajneeshpuram Test</h1>
     </footer>
 
 
@@ -165,7 +165,7 @@ changegweibutton.addEventListener("click", () => {
 
 ipc.on('okeygwei', (event, msg) => {
   console.log("okeygwei",msg);
-  alert('System gwei has changed successfully as ' + msg);
+  alert('Maximum gwei has changed successfully as ' + msg);
 
 });
 
