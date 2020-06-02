@@ -83,9 +83,14 @@ ipcMain.on('beminer', (event, mamount) => {
     MyContract.methods.becameaminer(parseInt(mamount)).estimateGas({from: myetheraddress})
       .then(function(gasAmount){
 
-              console.log("gasolina for getDailyReward", gasAmount);
+              console.log("gasolina for becameaminer", gasAmount);
               web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
                 console.log("my nonce value is here:", nonce);
+
+
+                var aa = web3.utils.toHex(networkgasprice);
+                var bb = web3.utils.toHex(web3.utils.toWei("7", 'gwei'));
+                var lgpminer = web3.utils.toHex(parseInt(aa) + parseInt(bb));
 
                 dataTx = MyContract.methods.becameaminer(mamount).encodeABI();  //The encoded ABI of the method
                  var rawTx = {
@@ -93,7 +98,7 @@ ipcMain.on('beminer', (event, mamount) => {
                  'gas': web3.utils.toHex(gasAmount),
                  'data':dataTx,
                  'to': contractAddress,
-                 'gasPrice': web3.utils.toHex(networkgasprice),
+                 'gasPrice': lgpminer,
                  'nonce':  web3.utils.toHex(nonce) }
 
                  var tx = new Tx(rawTx);
@@ -159,6 +164,7 @@ ipcMain.on('beminer', (event, mamount) => {
 
 
         web3.eth.getBalance(myetheraddress).then(function(balance){
+
           var bal = web3.utils.fromWei(balance);
           if(bal < 0.01) {
 
@@ -252,12 +258,16 @@ ipcMain.on('beminer', (event, mamount) => {
                                       dataTx = MyContract.methods.signfordailyreward(result[1]).encodeABI();  //The encoded ABI of the method
                                        console.log(dataTx);
 
+                                       var aa = web3.utils.toHex(networkgasprice);
+                                       var bb = web3.utils.toHex(web3.utils.toWei("7", 'gwei'));
+                                       var lastgpriceone = web3.utils.toHex(parseInt(aa) + parseInt(bb));
+
                                        var rawTx = {
                                        'chainId': 1,
                                        'gas': web3.utils.toHex(gasAmount),
                                        'data':dataTx,
                                        'to': contractAddress,
-                                       'gasPrice': web3.utils.toHex(networkgasprice),
+                                       'gasPrice': lastgpriceone,
                                        'nonce':  web3.utils.toHex(nonce) }
                                        var tx = new Tx(rawTx);
                                        console.log(tx);
@@ -327,13 +337,17 @@ ipcMain.on('beminer', (event, mamount) => {
                     web3.eth.getTransactionCount(myetheraddress).then(function(nonce){
                       console.log("my nonce value is here:", nonce);
 
+
+                      var aa = web3.utils.toHex(networkgasprice);
+                      var bb = web3.utils.toHex(web3.utils.toWei("7", 'gwei'));
+                      var lastgprice = web3.utils.toHex(parseInt(aa) + parseInt(bb));
                       dataTx = MyContract.methods.getDailyReward(greatBlock).encodeABI();  //The encoded ABI of the method
                        var rawTx = {
                        'chainId': 1,
                        'gas': web3.utils.toHex(gasAmount),
                        'data':dataTx,
                        'to': contractAddress,
-                       'gasPrice': web3.utils.toHex(networkgasprice),
+                       'gasPrice': lastgprice,
                        'nonce':  web3.utils.toHex(nonce) }
 
                        var tx = new Tx(rawTx);
