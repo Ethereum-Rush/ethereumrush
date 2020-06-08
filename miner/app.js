@@ -9,7 +9,7 @@ var hdkey = require('ethereumjs-wallet/hdkey');
 const ethUtils = require('ethereumjs-util');
 var oldresult = 999999999;
 var myetheraddress;
-var globalGwei = "35";
+var globalGwei = "100";
 
 const newminercont = "0xA215BBe37E817eB03bE1f9bC5BAD07fa9cf6B8C2"
 const newminerabi = JSON.parse('[{"inputs":[],"name":"checklasttwentyblock","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]')
@@ -39,8 +39,8 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 200,
     'min-width': 400,
     'min-height': 200,
     'accept-first-mouse': true,

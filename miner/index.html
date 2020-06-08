@@ -59,14 +59,16 @@
 
           <form id="ethform">
 
-            <img src="images/miners.png" id="landimg">
-            &nbsp;
+
             <center id="details">
             <h3 id="ethAddress"></h3>
             <h5 id="ethBalance"></h5>
             <h5 id="etrBalance"></h5>
             <h5 id="amn"></h5>
             <br>
+
+
+
             <div class="form-group gwiinputify" >
               <input id="ggweiinp"   type="text" class="form-control" placeholder="Maximum gwei is 35 ">
             </div>
@@ -74,6 +76,7 @@
             <div class="form-actions gwiinputify">
               <button type="button" id="changegwei" class="btn btn-form btn-primary">Change MaxGwei</button>
             </div>
+
 
           </center>
 
@@ -116,7 +119,7 @@
       </div>
 
       <footer class="toolbar toolbar-footer">
-      <h1 class="title">erush Rajneeshpuram v4.0</h1>
+      <h1 class="title">erush minimalism v4.1</h1>
     </footer>
 
 
@@ -172,7 +175,7 @@ ipc.on('okeygwei', (event, msg) => {
 
 ipc.on('amn', (event, msg) => {
 
-  $('.gwiinputify').css('display','block');
+  //$('.gwiinputify').css('display','block');
   document.getElementById("amn").innerHTML = msg + "&nbsp;Active miners";
 
 });
