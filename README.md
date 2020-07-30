@@ -2,20 +2,25 @@
 
 As we have seen over time, the proof of stake consensus mechanism, in other words, the idea of masternode which is based on winning prizes over some time by renting a coins did as well as the Proof of Work consensus algorithm. But people have to learn too much programming and terminal knowledge to become a masternode, which significantly reduces participation. Our first solution is to help people become masternode without having technical knowledge and to allow them to do a proof of live while keeping their devices on. Our other important solution is to enable the sending of a text (alphanumeric characters) in the ethereum network alongside the memo, in other words. I will explain the importance of this feature below.
 
-- Download miner programs for mac and windows [from here](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/2.3).
+- Download miner programs for mac and windows [from here](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/4.1).
 - Our offical contract address is [0x3cC5EB07E0e1227613F1DF58f38b549823d11cB9](https://etherscan.io/address/0x3cC5EB07E0e1227613F1DF58f38b549823d11cB9).
+- Buy ethereum erush from uniswap [from here](https://uniswap.info/token/0x3cc5eb07e0e1227613f1df58f38b549823d11cb9).
+- Show ethereum erush-eth pair details [from here](https://uniswap.info/pair/0x88B96ad151D86AAb2367292f53e53C8eaF12dFa3).
+
+
+
 
 ## Contact
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/ethereumrush-github/)
 [![GitHub Issues](https://img.shields.io/badge/open%20issues-0-yellow.svg)](https://github.com/omgbbqhaxx/EthereumRushMiner/issues)
 
-- Chat in [ethereumrush-github channel on Gitter](https://gitter.im/ethereumrush-github).
+- Chat in [ethereumrush-github channel on telegram](https://t.me/ethereumerush).
 - Report bugs, issues or feature requests using [GitHub issues](issues/new).
 
 
 ## Download and start minig.
 
-The Ethereum Mining programs  **[Ethereum eRUSH Miner program](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/2.0)**, which
+The Ethereum Mining programs  **[Ethereum eRUSH Miner program](https://github.com/Ethereum-Rush/ethereumrush/releases/tag/4.1)**, which
 has a Quick Start section.
 
 Operating system | Status
