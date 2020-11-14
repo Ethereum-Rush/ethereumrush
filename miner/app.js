@@ -9,7 +9,7 @@ var hdkey = require('ethereumjs-wallet/hdkey');
 const ethUtils = require('ethereumjs-util');
 var oldresult = 999999999;
 var myetheraddress;
-var globalGwei = "100";
+var globalGwei = "30";
 
 const newminercont = "0xA215BBe37E817eB03bE1f9bC5BAD07fa9cf6B8C2"
 const newminerabi = JSON.parse('[{"inputs":[],"name":"checklasttwentyblock","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]')
@@ -79,6 +79,9 @@ ipcMain.on('beminer', (event, mamount) => {
           gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
       });
 
+      MyContract.options.gasPrice = '10'; // default gas price in wei
+      MyContract.options.gas = 5000000; // provide as fallback always 5M gas
+
     const grpice  = web3.eth.getGasPrice().then(function(networkgasprice){
     MyContract.methods.becameaminer(parseInt(mamount)).estimateGas({from: myetheraddress})
       .then(function(gasAmount){
@@ -115,6 +118,8 @@ ipcMain.on('beminer', (event, mamount) => {
 });
 
 
+
+
   ipcMain.on('key', (event, privateKey) => {
     //console.log(arg) // prints "ping"
     //var buf = Buffer.from(arg, 'utf8');
@@ -138,9 +143,10 @@ ipcMain.on('beminer', (event, mamount) => {
       continuexx();
     } else {
       var privateKey = Buffer.from(privateKey["pkey"], 'hex' );
-      myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex')
-      console.log(privateKey);
-      console.log(myetheraddress);
+      myetheraddress = ethUtils.privateToAddress(privateKey).toString('hex');
+      myetheraddress =  web3.utils.toChecksumAddress(myetheraddress);
+      console.log("privateKey",privateKey);
+      console.log("myetheraddress",myetheraddress);
       pkkey = privateKey;
       continuexx();
     }
@@ -148,26 +154,24 @@ ipcMain.on('beminer', (event, mamount) => {
   });
 
 
+
   function continuexx(){
 
-
-
-
-
-
-
-
+        console.log("comehere1");
         var MyContract = new web3.eth.Contract(abi, contractAddress, {
             from: myetheraddress, // default from address
             gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
         });
 
-
+        MyContract.options.gasPrice = '10'; // default gas price in wei
+        MyContract.options.gas = 5000000; // provide as fallback always 5M gas
         web3.eth.getBalance(myetheraddress).then(function(balance){
 
           var bal = web3.utils.fromWei(balance);
-          if(bal < 0.01) {
+          console.log("comehere3", balance);
 
+          if(bal < 0.01) {
+            console.log("comehere4");
                     const options = {
               type: 'question',
               buttons: ['I understand problem, i will load ethereum to this address.'],
@@ -185,9 +189,11 @@ ipcMain.on('beminer', (event, mamount) => {
 
           } else {
 
-
+            console.log("comehere5");
+           console.log("isAddress",web3.utils.isAddress(myetheraddress));
            MyContract.methods.checkAddrMinerStatus(myetheraddress).call().then(function(result){
 
+             console.log("comehere6");
 
               if(result) {
                 mainWindow.webContents.send("ethaddress", myetheraddress);
@@ -223,8 +229,8 @@ ipcMain.on('beminer', (event, mamount) => {
                         gasPrice: web3.utils.toWei(globalGwei, 'gwei') // default gas price in wei, 20 gwei in this case
                     });
 
-
-
+                    MinerContract.options.gasPrice = '10'; // default gas price in wei
+                    MinerContract.options.gas = 5000000; // provide as fallback always 5M gas
 
                     const grpice  = web3.eth.getGasPrice().then(function(networkgasprice){
 
@@ -319,9 +325,9 @@ ipcMain.on('beminer', (event, mamount) => {
                 });
 
               }
-           });
+           }).catch(function(err){console.log("Miner status problem", err);});
           }
-        });
+        }).catch(function(err){console.log("Balance err for getrewardnow", err);});
 
 
 
